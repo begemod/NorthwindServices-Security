@@ -9,30 +9,31 @@
     [TestClass]
     public class RemoteWCFOrdersServiceTests
     {
-        [TestMethod]
-        public void GetAllTest()
-        {
-            using (var client = new OrdersServiceClient())
-            {
-                var allOrders = client.GetAll();
+        private const string BasicHttpBindingIOrdersService = "BasicHttpBinding_IOrdersService";
+        private const string NetTcpBindingIOrdersService = "NetTcpBinding_IOrdersService";
 
-                Assert.IsTrue(allOrders != null && allOrders.Any());
-            }
+        [TestMethod]
+        public void HttpBinding_GetAllTest()
+        {
+            this.GetAllTest(BasicHttpBindingIOrdersService);
         }
 
         [TestMethod]
-        public void GetByIdTest()
+        public void TcpBinding_GetAllTest()
         {
-            using (var client = new OrdersServiceClient())
-            {
-                var allOrders = client.GetAll();
+            this.GetAllTest(NetTcpBindingIOrdersService);
+        }
 
-                var orderId = allOrders.First().OrderId;
+        [TestMethod]
+        public void HttpBinding_GetByIdTest()
+        {
+            this.GetByIdTest(BasicHttpBindingIOrdersService);
+        }
 
-                var orderById = client.GetById(orderId);
-
-                Assert.IsNotNull(orderById);
-            }
+        [TestMethod]
+        public void TcpBinding_GetByIdTest()
+        {
+            this.GetByIdTest(NetTcpBindingIOrdersService);
         }
 
         [TestMethod]
@@ -196,6 +197,30 @@
                 var unsubscribeResult = client.Unsubscribe(clientIdentifier);
 
                 Assert.IsTrue(unsubscribeResult);
+            }
+        }
+
+        private void GetAllTest(string endpointConfigurationName)
+        {
+            using (var client = new OrdersServiceClient(endpointConfigurationName))
+            {
+                var allOrders = client.GetAll();
+
+                Assert.IsTrue(allOrders != null && allOrders.Any());
+            }
+        }
+
+        private void GetByIdTest(string endpointConfigurationName)
+        {
+            using (var client = new OrdersServiceClient(endpointConfigurationName))
+            {
+                var allOrders = client.GetAll();
+
+                var orderId = allOrders.First().OrderId;
+
+                var orderById = client.GetById(orderId);
+
+                Assert.IsNotNull(orderById);
             }
         }
 

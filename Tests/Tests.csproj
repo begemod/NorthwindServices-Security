@@ -72,32 +72,32 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\CategoriesService\CategoriesService.wsdl" />
-    <None Include="Service References\CategoriesService\CategoriesService.xsd">
+    <None Include="Service References\CategoriesService\CategoriesService2.wsdl" />
+    <None Include="Service References\CategoriesService\CategoriesService21.wsdl" />
+    <None Include="Service References\CategoriesService\CategoriesService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CategoriesService\CategoriesService1.wsdl" />
-    <None Include="Service References\CategoriesService\CategoriesService1.xsd">
+    <None Include="Service References\CategoriesService\CategoriesService41.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CategoriesService\CategoriesService2.xsd">
+    <None Include="Service References\CategoriesService\CategoriesService42.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CategoriesService\CategoriesService3.xsd">
+    <None Include="Service References\CategoriesService\CategoriesService43.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\CategoriesService\Tests.CategoriesService.SaveCategoryImageResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\OrdersService\OrdersService.wsdl" />
-    <None Include="Service References\OrdersService\OrdersService.xsd">
+    <None Include="Service References\OrdersService\OrdersService2.wsdl" />
+    <None Include="Service References\OrdersService\OrdersService21.wsdl" />
+    <None Include="Service References\OrdersService\OrdersService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\OrdersService\OrdersService1.wsdl" />
-    <None Include="Service References\OrdersService\OrdersService1.xsd">
+    <None Include="Service References\OrdersService\OrdersService31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\OrdersService\OrdersService2.xsd">
+    <None Include="Service References\OrdersService\OrdersService32.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\OrdersService\Tests.OrdersService.OrderDTO.datasource">
@@ -107,9 +107,6 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\CategoriesService\" />
     <WCFMetadataStorage Include="Service References\OrdersService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CategoriesService\CategoriesService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\CategoriesService\configuration91.svcinfo" />
@@ -124,9 +121,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\OrdersService\OrdersService.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\OrdersService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +131,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\OrdersService\OrdersService1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CategoriesService\CategoriesService1.disco" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

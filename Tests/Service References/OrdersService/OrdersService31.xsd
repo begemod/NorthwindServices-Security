@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://epam.com/NorthwindService" elementFormDefault="qualified" targetNamespace="http://epam.com/NorthwindService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:49738/OrdersService.svc?xsd=xsd2" namespace="http://epam.com/NorthwindServices" />
+  <xs:import schemaLocation="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/OrdersService.svc?xsd=xsd2" namespace="http://epam.com/NorthwindServices" />
   <xs:element name="GetAll">
     <xs:complexType>
       <xs:sequence />

@@ -21,16 +21,16 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:49738/CategoriesService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/NorthwindWCFServices/CategoriesService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="CategoriesService.xsd" MetadataType="Schema" ID="76b3eaaf-92d0-4359-917a-af276b581142" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?xsd=xsd2" />
-    <MetadataFile FileName="CategoriesService1.xsd" MetadataType="Schema" ID="07895ed0-acc3-46a1-9f64-df7fadc67bdb" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?xsd=xsd1" />
-    <MetadataFile FileName="CategoriesService2.xsd" MetadataType="Schema" ID="2b863de2-5a58-4f3b-8f88-d2878bade841" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?xsd=xsd0" />
-    <MetadataFile FileName="CategoriesService.wsdl" MetadataType="Wsdl" ID="82317010-8413-4f45-82b4-162b4a89565c" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?wsdl=wsdl0" />
-    <MetadataFile FileName="CategoriesService.disco" MetadataType="Disco" ID="19ea78fd-45f4-488d-b3ee-b41a53ea5775" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?disco" />
-    <MetadataFile FileName="CategoriesService1.wsdl" MetadataType="Wsdl" ID="19d7462f-7151-4ab1-8f58-0bf95f07c9ce" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?wsdl" />
-    <MetadataFile FileName="CategoriesService3.xsd" MetadataType="Schema" ID="35313f0b-6e2a-476c-ba36-c6f81e1c0b94" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?xsd=xsd3" />
+    <MetadataFile FileName="CategoriesService1.disco" MetadataType="Disco" ID="e08f7208-ac79-4b6e-8ddf-4587d8878784" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/CategoriesService.svc?disco" />
+    <MetadataFile FileName="CategoriesService4.xsd" MetadataType="Schema" ID="7240a39d-05c8-4a54-8d11-69a007b62efe" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/CategoriesService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CategoriesService41.xsd" MetadataType="Schema" ID="27e05447-6eb4-4c28-abe7-a93835395234" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/CategoriesService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CategoriesService42.xsd" MetadataType="Schema" ID="7cc93deb-8fc7-432f-a114-804dc109d9ab" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/CategoriesService.svc?xsd=xsd3" />
+    <MetadataFile FileName="CategoriesService43.xsd" MetadataType="Schema" ID="3d601523-ee3a-4a3c-8826-6ccd55dd724a" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/CategoriesService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CategoriesService2.wsdl" MetadataType="Wsdl" ID="9d11a722-90c4-4901-ac8c-b6318dd13924" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/CategoriesService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="CategoriesService21.wsdl" MetadataType="Wsdl" ID="9186ba7f-6215-4c5f-bca9-9f165bbcdba9" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/CategoriesService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

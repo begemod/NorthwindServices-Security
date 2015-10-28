@@ -21,15 +21,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:49738/OrdersService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/NorthwindWCFServices/OrdersService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="OrdersService.xsd" MetadataType="Schema" ID="8bbba39d-3739-4afb-939c-ea8495e5dc90" SourceId="1" SourceUrl="http://localhost:49738/OrdersService.svc?xsd=xsd1" />
-    <MetadataFile FileName="OrdersService1.xsd" MetadataType="Schema" ID="007baf87-31f1-47bd-b74b-fb2187500862" SourceId="1" SourceUrl="http://localhost:49738/OrdersService.svc?xsd=xsd0" />
-    <MetadataFile FileName="OrdersService2.xsd" MetadataType="Schema" ID="c8e84107-4bb3-4408-bd7c-1ef1aa5ae8a6" SourceId="1" SourceUrl="http://localhost:49738/OrdersService.svc?xsd=xsd2" />
-    <MetadataFile FileName="OrdersService.wsdl" MetadataType="Wsdl" ID="35f3e566-fe42-4fa2-abcd-16e2f9487778" SourceId="1" SourceUrl="http://localhost:49738/OrdersService.svc?wsdl" />
-    <MetadataFile FileName="OrdersService1.wsdl" MetadataType="Wsdl" ID="165e3b34-c75c-4701-809f-cb833cd42f4c" SourceId="1" SourceUrl="http://localhost:49738/OrdersService.svc?wsdl=wsdl0" />
-    <MetadataFile FileName="OrdersService.disco" MetadataType="Disco" ID="61e74878-7666-40a0-9d94-302dab1ff93f" SourceId="1" SourceUrl="http://localhost:49738/OrdersService.svc?disco" />
+    <MetadataFile FileName="OrdersService1.disco" MetadataType="Disco" ID="28d11ff3-4ab3-4c28-9c0d-b00bc9fd87a6" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/OrdersService.svc?disco" />
+    <MetadataFile FileName="OrdersService3.xsd" MetadataType="Schema" ID="dcf9a007-56b6-4d50-8734-f220a02b754e" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/OrdersService.svc?xsd=xsd2" />
+    <MetadataFile FileName="OrdersService2.wsdl" MetadataType="Wsdl" ID="91034f09-73c4-40f2-8727-3d50669a8500" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/OrdersService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="OrdersService21.wsdl" MetadataType="Wsdl" ID="85d2fde9-eac3-4443-938d-5461fcff7df6" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/OrdersService.svc?wsdl" />
+    <MetadataFile FileName="OrdersService31.xsd" MetadataType="Schema" ID="0cce9044-8eab-4a9a-ac78-374f746eed77" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/OrdersService.svc?xsd=xsd0" />
+    <MetadataFile FileName="OrdersService32.xsd" MetadataType="Schema" ID="eae98dd7-251c-4399-9911-a784a2fde3b9" SourceId="1" SourceUrl="http://epruizhw0228.moscow.epam.com/NorthwindWCFServices/OrdersService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

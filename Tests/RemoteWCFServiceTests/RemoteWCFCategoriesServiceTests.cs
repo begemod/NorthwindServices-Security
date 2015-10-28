@@ -10,15 +10,19 @@
     [TestClass]
     public class RemoteWCFCategoriesServiceTests
     {
-        [TestMethod]
-        public void GetCategoryNamesTest()
-        {
-            using (var client = new CategoriesServiceClient())
-            {
-                var names = client.GetCategoryNames();
+        private const string BasicHttpBindingIOrdersService = "BasicHttpBinding_ICategoriesService";
+        private const string NetTcpBindingIOrdersService = "NetTcpBinding_ICategoriesService";
 
-                Assert.IsTrue(names != null && names.Any());
-            }
+        [TestMethod]
+        public void HttpBinding_GetCategoryNamesTest()
+        {
+            this.GetCategoryNamesTest(BasicHttpBindingIOrdersService);
+        }
+
+        [TestMethod]
+        public void NetTcpBinding_GetCategoryNamesTest()
+        {
+            this.GetCategoryNamesTest(NetTcpBindingIOrdersService);
         }
 
         [TestMethod]
@@ -86,6 +90,16 @@
                 memoryStream.Position = 0;
 
                 client.SaveCategoryImage(categoryName, memoryStream);
+            }
+        }
+
+        private void GetCategoryNamesTest(string endpointConfigurationName)
+        {
+            using (var client = new CategoriesServiceClient(endpointConfigurationName))
+            {
+                var names = client.GetCategoryNames();
+
+                Assert.IsTrue(names != null && names.Any());
             }
         }
 
