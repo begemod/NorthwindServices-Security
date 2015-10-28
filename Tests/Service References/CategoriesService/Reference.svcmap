@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1af3ec0a-109e-4428-9b05-34549fed275d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:49738/CategoriesService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CategoriesService.xsd" MetadataType="Schema" ID="76b3eaaf-92d0-4359-917a-af276b581142" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CategoriesService1.xsd" MetadataType="Schema" ID="07895ed0-acc3-46a1-9f64-df7fadc67bdb" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CategoriesService2.xsd" MetadataType="Schema" ID="2b863de2-5a58-4f3b-8f88-d2878bade841" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CategoriesService.wsdl" MetadataType="Wsdl" ID="82317010-8413-4f45-82b4-162b4a89565c" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="CategoriesService.disco" MetadataType="Disco" ID="19ea78fd-45f4-488d-b3ee-b41a53ea5775" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?disco" />
+    <MetadataFile FileName="CategoriesService1.wsdl" MetadataType="Wsdl" ID="19d7462f-7151-4ab1-8f58-0bf95f07c9ce" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?wsdl" />
+    <MetadataFile FileName="CategoriesService3.xsd" MetadataType="Schema" ID="35313f0b-6e2a-476c-ba36-c6f81e1c0b94" SourceId="1" SourceUrl="http://localhost:49738/CategoriesService.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

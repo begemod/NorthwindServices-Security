@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFServices", "WCFServices\WCFServices.csproj", "{67398600-FD64-4FDE-A087-0309EED96F80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{5C649302-310C-4AED-8401-B86BF8317033}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B1F03AE4-F85D-4AB8-BB54-9CB7204D0897} = {B1F03AE4-F85D-4AB8-BB54-9CB7204D0897}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

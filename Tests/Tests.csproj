@@ -36,6 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -50,8 +53,90 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoteWCFServiceTests\RemoteWCFCategoriesServiceTests.cs" />
+    <Compile Include="RemoteWCFServiceTests\RemoteWCFOrdersServiceTests.cs" />
+    <Compile Include="Service References\CategoriesService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OrdersService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\CategoriesService\CategoriesService.wsdl" />
+    <None Include="Service References\CategoriesService\CategoriesService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CategoriesService\CategoriesService1.wsdl" />
+    <None Include="Service References\CategoriesService\CategoriesService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CategoriesService\CategoriesService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CategoriesService\CategoriesService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CategoriesService\Tests.CategoriesService.SaveCategoryImageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OrdersService\OrdersService.wsdl" />
+    <None Include="Service References\OrdersService\OrdersService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OrdersService\OrdersService1.wsdl" />
+    <None Include="Service References\OrdersService\OrdersService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OrdersService\OrdersService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OrdersService\Tests.OrdersService.OrderDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CategoriesService\" />
+    <WCFMetadataStorage Include="Service References\OrdersService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CategoriesService\CategoriesService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CategoriesService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CategoriesService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CategoriesService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\OrdersService\OrdersService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\OrdersService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\OrdersService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\OrdersService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
