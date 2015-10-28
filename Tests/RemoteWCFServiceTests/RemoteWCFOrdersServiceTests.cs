@@ -27,7 +27,7 @@
             {
                 var allOrders = client.GetAll();
 
-                var orderId  = allOrders.First().OrderId;
+                var orderId = allOrders.First().OrderId;
 
                 var orderById = client.GetById(orderId);
 
@@ -181,6 +181,24 @@
             }
         }
 
+        [TestMethod]
+        public void SubscribeUnsubscribeOnOrderStatusChangingEventsTest()
+        {
+            var callbacksClient = new SubscriptionServiceClient();
+            using (var client = new OrdersSubscriptionServiceClient(new InstanceContext(callbacksClient)))
+            {
+                var clientIdentifier = Guid.NewGuid().ToString();
+
+                var subscribeResult = client.Subscribe(clientIdentifier);
+
+                Assert.IsTrue(subscribeResult);
+
+                var unsubscribeResult = client.Unsubscribe(clientIdentifier);
+
+                Assert.IsTrue(unsubscribeResult);
+            }
+        }
+
         private OrderDTO CreateNewOrder()
         {
             var order = this.GetExistingOder();
@@ -200,6 +218,14 @@
 
                 return allOrders.First(predicate);
             }
+        }
+    }
+
+    internal class SubscriptionServiceClient : IOrdersSubscriptionServiceCallback
+    {
+        public void OrderStatusIsChanged(int orderId)
+        {
+            Console.WriteLine("Status of order with Id = {0} has been changed", orderId);
         }
     }
 }
