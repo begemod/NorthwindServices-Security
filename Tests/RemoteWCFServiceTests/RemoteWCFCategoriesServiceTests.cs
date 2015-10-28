@@ -27,31 +27,30 @@
 
         [TestMethod]
         [ExpectedException(typeof(FaultException))]
-        public void GetCategoryImageFaultTest()
+        public void HttpBinding_GetCategoryImageFaultTest()
         {
-            using (var client = new CategoriesServiceClient())
-            {
-                var invalidCategoryName = Guid.NewGuid().ToString();
-                var stream = client.GetCategoryImage(invalidCategoryName);
-            }
+            this.GetCategoryImageFaultTest(BasicHttpBindingIOrdersService);
         }
 
         [TestMethod]
-        public void GetCategoryImageTest()
+        [ExpectedException(typeof(FaultException))]
+        public void NetTcpBinding_GetCategoryImageFaultTest()
         {
-            using (var client = new CategoriesServiceClient())
-            {
-                var names = client.GetCategoryNames();
-
-                var categoryName = names.First();
-
-                var readerStream = client.GetCategoryImage(categoryName);
-
-                var memoryStream = this.ReadDataToMemoryStream(readerStream);
-
-                Assert.IsTrue(memoryStream.Length > 0);
-            }
+            this.GetCategoryImageFaultTest(NetTcpBindingIOrdersService);
         }
+
+        [TestMethod]
+        public void HttpBinding_GetCategoryImageTest()
+        {
+            this.GetCategoryImageTest(BasicHttpBindingIOrdersService);
+        }
+
+        [TestMethod]
+        public void NetTcpBinding_GetCategoryImageTest()
+        {
+            this.GetCategoryImageTest(NetTcpBindingIOrdersService);
+        }
+
 
         [TestMethod]
         [ExpectedException(typeof(FaultException))]
@@ -100,6 +99,31 @@
                 var names = client.GetCategoryNames();
 
                 Assert.IsTrue(names != null && names.Any());
+            }
+        }
+
+        private void GetCategoryImageFaultTest(string endpointConfigurationName)
+        {
+            using (var client = new CategoriesServiceClient(endpointConfigurationName))
+            {
+                var invalidCategoryName = Guid.NewGuid().ToString();
+                var stream = client.GetCategoryImage(invalidCategoryName);
+            }
+        }
+
+        private void GetCategoryImageTest(string endpointConfigurationName)
+        {
+            using (var client = new CategoriesServiceClient(endpointConfigurationName))
+            {
+                var names = client.GetCategoryNames();
+
+                var categoryName = names.First();
+
+                var readerStream = client.GetCategoryImage(categoryName);
+
+                var memoryStream = this.ReadDataToMemoryStream(readerStream);
+
+                Assert.IsTrue(memoryStream.Length > 0);
             }
         }
 
