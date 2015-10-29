@@ -56,10 +56,8 @@
         [ExpectedException(typeof(FaultException))]
         public void SaveCategoryImageNullCategoryNameFaultTest()
         {
-            using (var client = new CategoriesServiceClient())
-            {
-                client.SaveCategoryImage(string.Empty, new MemoryStream());
-            }
+           this.SaveCategoryImageNullCategoryNameFaultTest(BasicHttpBindingIOrdersService);
+           this.SaveCategoryImageNullCategoryNameFaultTest(NetTcpBindingIOrdersService);
         }
 
         [TestMethod]
@@ -124,6 +122,14 @@
                 var memoryStream = this.ReadDataToMemoryStream(readerStream);
 
                 Assert.IsTrue(memoryStream.Length > 0);
+            }
+        }
+
+        private void SaveCategoryImageNullCategoryNameFaultTest(string endpointConfigurationName)
+        {
+            using (var client = new CategoriesServiceClient(endpointConfigurationName))
+            {
+                client.SaveCategoryImage(string.Empty, new MemoryStream());
             }
         }
 
