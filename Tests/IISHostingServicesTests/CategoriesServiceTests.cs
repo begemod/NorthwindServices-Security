@@ -1,4 +1,4 @@
-﻿namespace Tests.RemoteWCFServiceTests
+﻿namespace Tests.IISHostingServicesTests
 {
     using System;
     using System.IO;
@@ -8,7 +8,7 @@
     using Tests.CategoriesService;
 
     [TestClass]
-    public class RemoteWCFCategoriesServiceTests
+    public class CategoriesServiceTests
     {
         private const string BasicHttpBindingIOrdersService = "BasicHttpBinding_ICategoriesService";
         private const string NetTcpBindingIOrdersService = "NetTcpBinding_ICategoriesService";
@@ -19,7 +19,6 @@
             this.GetCategoryNamesTest(BasicHttpBindingIOrdersService);
             this.GetCategoryNamesTest(NetTcpBindingIOrdersService);
         }
-
 
         [TestMethod]
         [ExpectedException(typeof(FaultException))]

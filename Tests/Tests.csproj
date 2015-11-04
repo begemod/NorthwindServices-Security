@@ -54,8 +54,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RemoteWCFServiceTests\RemoteWCFCategoriesServiceTests.cs" />
-    <Compile Include="RemoteWCFServiceTests\RemoteWCFOrdersServiceTests.cs" />
+    <Compile Include="IISHostingServicesTests\CategoriesServiceTests.cs" />
+    <Compile Include="IISHostingServicesTests\OrdersServiceTests.cs" />
     <Compile Include="Service References\CategoriesService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
