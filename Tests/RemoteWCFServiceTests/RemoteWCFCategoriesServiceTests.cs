@@ -14,43 +14,27 @@
         private const string NetTcpBindingIOrdersService = "NetTcpBinding_ICategoriesService";
 
         [TestMethod]
-        public void HttpBinding_GetCategoryNamesTest()
+        public void GetCategoryNamesTest()
         {
             this.GetCategoryNamesTest(BasicHttpBindingIOrdersService);
-        }
-
-        [TestMethod]
-        public void NetTcpBinding_GetCategoryNamesTest()
-        {
             this.GetCategoryNamesTest(NetTcpBindingIOrdersService);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FaultException))]
-        public void HttpBinding_GetCategoryImageFaultTest()
-        {
-            this.GetCategoryImageFaultTest(BasicHttpBindingIOrdersService);
-        }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException))]
-        public void NetTcpBinding_GetCategoryImageFaultTest()
+        public void GetCategoryImageFaultTest()
         {
+            this.GetCategoryImageFaultTest(BasicHttpBindingIOrdersService);
             this.GetCategoryImageFaultTest(NetTcpBindingIOrdersService);
         }
 
         [TestMethod]
-        public void HttpBinding_GetCategoryImageTest()
+        public void GetCategoryImageTest()
         {
             this.GetCategoryImageTest(BasicHttpBindingIOrdersService);
-        }
-
-        [TestMethod]
-        public void NetTcpBinding_GetCategoryImageTest()
-        {
             this.GetCategoryImageTest(NetTcpBindingIOrdersService);
         }
-
 
         [TestMethod]
         [ExpectedException(typeof(FaultException))]
@@ -64,30 +48,15 @@
         [ExpectedException(typeof(FaultException))]
         public void SaveCategoryImageWrongCategoryNameFaultTest()
         {
-            using (var client = new CategoriesServiceClient())
-            {
-                var wrongCategoryName = Guid.NewGuid().ToString();
-                var stream = new MemoryStream();
-
-                client.SaveCategoryImage(wrongCategoryName, stream);
-            }
+            this.SaveCategoryImageWithWrongCategoryNameFaultTest(BasicHttpBindingIOrdersService);
+            this.SaveCategoryImageWithWrongCategoryNameFaultTest(NetTcpBindingIOrdersService);
         }
 
         [TestMethod]
         public void SaveCategoryImageTest()
         {
-            using (var client = new CategoriesServiceClient())
-            {
-                var names = client.GetCategoryNames();
-                var categoryName = names.First();
-
-                var readerStream = client.GetCategoryImage(categoryName);
-
-                var memoryStream = this.ReadDataToMemoryStream(readerStream);
-                memoryStream.Position = 0;
-
-                client.SaveCategoryImage(categoryName, memoryStream);
-            }
+            this.SaveCategoryImageTest(BasicHttpBindingIOrdersService);
+            this.SaveCategoryImageTest(NetTcpBindingIOrdersService);
         }
 
         private void GetCategoryNamesTest(string endpointConfigurationName)
@@ -130,6 +99,33 @@
             using (var client = new CategoriesServiceClient(endpointConfigurationName))
             {
                 client.SaveCategoryImage(string.Empty, new MemoryStream());
+            }
+        }
+
+        private void SaveCategoryImageWithWrongCategoryNameFaultTest(string endpointConfigurationName)
+        {
+            using (var client = new CategoriesServiceClient(endpointConfigurationName))
+            {
+                var wrongCategoryName = Guid.NewGuid().ToString();
+                var stream = new MemoryStream();
+
+                client.SaveCategoryImage(wrongCategoryName, stream);
+            }
+        }
+
+        private void SaveCategoryImageTest(string endpointConfigurationName)
+        {
+            using (var client = new CategoriesServiceClient(endpointConfigurationName))
+            {
+                var names = client.GetCategoryNames();
+                var categoryName = names.First();
+
+                var readerStream = client.GetCategoryImage(categoryName);
+
+                var memoryStream = this.ReadDataToMemoryStream(readerStream);
+                memoryStream.Position = 0;
+
+                client.SaveCategoryImage(categoryName, memoryStream);
             }
         }
 
