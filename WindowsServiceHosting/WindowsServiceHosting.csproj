@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleMessagesContainer.cs" />
+    <Compile Include="IMessagesContainer.cs" />
     <Compile Include="NortwindWCFServicesHost.cs">
       <SubType>Component</SubType>
     </Compile>

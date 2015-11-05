@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.InteropServices;
     using System.ServiceModel;
     using System.ServiceProcess;
     using System.Threading;
@@ -10,9 +11,11 @@
     public partial class NortwindWCFServicesHost : ServiceBase
     {
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        private readonly IMessagesContainer messagesContainer;
 
-        public NortwindWCFServicesHost()
+        public NortwindWCFServicesHost(IMessagesContainer messagesContainer)
         {
+            this.messagesContainer = messagesContainer;
             this.InitializeComponent();
         }
 
@@ -34,38 +37,65 @@
         {
         }
 
+        private void WriteMessage(string message)
+        {
+            if (this.messagesContainer != null)
+            {
+                this.messagesContainer.AddMessage(message);
+            }
+        }
+
         private void ConfigureHosts()
         {
-            var hosts = ServiceHostsFactory.GetHosts();
-            
+            var hosts = ServiceHostsFactory.Hosts;
+
             var serviceHosts = hosts as IList<ServiceHost> ?? hosts.ToArray();
-            
+
             if (hosts == null || !serviceHosts.Any())
             {
                 return;
             }
 
-            var tasks = new List<Task>();
-
             foreach (var serviceHost in serviceHosts)
             {
                 var host = serviceHost;
 
-                var serviceTask = new Task(
+                Task.Factory.StartNew(
                     () =>
                         {
-                            using (host)
+                            try
                             {
                                 host.Open();
-                                cancellationTokenSource.Token.ThrowIfCancellationRequested();
+
+                                this.WriteMessage(string.Format("Host for {0} is running", host.GetType().Name));
+
+                                while (true)
+                                {
+                                    cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                                }
+                            }
+                            finally
+                            {
+                                host.Close();
                             }
                         },
-                    this.cancellationTokenSource.Token);
-
-                tasks.Add(serviceTask);
+                    this.cancellationTokenSource.Token,
+                    TaskCreationOptions.LongRunning,
+                    TaskScheduler.Default)
+                    .ContinueWith(
+                        T =>
+                            {
+                                if (T.Exception != null)
+                                {
+                                    var exception = T.Exception.Flatten().InnerException;
+                                    this.messagesContainer.AddMessage(exception.Message);
+                                }
+                            },
+                        TaskContinuationOptions.OnlyOnFaulted)
+                    .ContinueWith(
+                        T => this.WriteMessage("Host stopped."),
+                        TaskContinuationOptions.OnlyOnCanceled);
             }
-
-            Task.WaitAll(tasks.ToArray(), this.cancellationTokenSource.Token);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace WindowsServiceHosting
 {
     using System;
-    using System.ServiceProcess;
     using System.Threading;
 
     public static class Program
@@ -32,18 +31,20 @@
             {
                 Console.CancelKeyPress += ConsoleCancelKeyPress;
 
-                servicesHost = new NortwindWCFServicesHost();
+                servicesHost = new NortwindWCFServicesHost(new ConsoleMessagesContainer());
                 servicesHost.StartServer();
 
                 Console.WriteLine("Server started. Press Ctrl+C to shutdown the server...");
-
-                msResetEvent.WaitOne();
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
                 Console.WriteLine();
                 Console.WriteLine(exception.StackTrace);
+            }
+            finally
+            {
+                msResetEvent.WaitOne();
             }
         }
 
@@ -52,7 +53,7 @@
             if (servicesHost != null)
             {
                 servicesHost.StopServer();
-                Console.WriteLine("Server stopped...");
+                Console.WriteLine("Server stopped.");
             }
 
             msResetEvent.Set();
