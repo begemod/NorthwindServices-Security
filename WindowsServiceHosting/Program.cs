@@ -35,6 +35,7 @@
                 servicesHost.StartServer();
 
                 Console.WriteLine("Server started. Press Ctrl+C to shutdown the server...");
+                Console.WriteLine();
             }
             catch (Exception exception)
             {

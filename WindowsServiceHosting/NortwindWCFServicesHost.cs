@@ -1,8 +1,7 @@
 ﻿namespace WindowsServiceHosting
 {
-    using System.Collections.Generic;
+    using System;
     using System.Linq;
-    using System.Runtime.InteropServices;
     using System.ServiceModel;
     using System.ServiceProcess;
     using System.Threading;
@@ -11,6 +10,7 @@
     public partial class NortwindWCFServicesHost : ServiceBase
     {
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
         private readonly IMessagesContainer messagesContainer;
 
         public NortwindWCFServicesHost(IMessagesContainer messagesContainer)
@@ -47,55 +47,51 @@
 
         private void ConfigureHosts()
         {
-            var hosts = ServiceHostsFactory.Hosts;
+            var hosts = ServiceHostsFactory.Hosts.ToList();
 
-            var serviceHosts = hosts as IList<ServiceHost> ?? hosts.ToArray();
-
-            if (hosts == null || !serviceHosts.Any())
+            if (!hosts.Any())
             {
                 return;
             }
 
-            foreach (var serviceHost in serviceHosts)
+            foreach (var serviceHost in hosts)
             {
                 var host = serviceHost;
-
-                Task.Factory.StartNew(
-                    () =>
-                        {
-                            try
-                            {
-                                host.Open();
-
-                                this.WriteMessage(string.Format("Host for {0} is running", host.GetType().Name));
-
-                                while (true)
-                                {
-                                    cancellationTokenSource.Token.ThrowIfCancellationRequested();
-                                }
-                            }
-                            finally
-                            {
-                                host.Close();
-                            }
-                        },
-                    this.cancellationTokenSource.Token,
-                    TaskCreationOptions.LongRunning,
-                    TaskScheduler.Default)
-                    .ContinueWith(
-                        T =>
-                            {
-                                if (T.Exception != null)
-                                {
-                                    var exception = T.Exception.Flatten().InnerException;
-                                    this.messagesContainer.AddMessage(exception.Message);
-                                }
-                            },
-                        TaskContinuationOptions.OnlyOnFaulted)
-                    .ContinueWith(
-                        T => this.WriteMessage("Host stopped."),
-                        TaskContinuationOptions.OnlyOnCanceled);
+                this.RunHost(host);
             }
+        }
+
+        private void RunHost(ServiceHost serviceHost)
+        {
+            Task.Factory.StartNew(
+                () =>
+                {
+                    try
+                    {
+                        serviceHost.Open();
+
+                        this.WriteMessage(string.Format("Host for {0} is running", serviceHost.Description.ServiceType));
+
+                        while (true)
+                        {
+                            cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                            Thread.Sleep(100);
+                        }
+                    }
+                    catch (CommunicationException exception)
+                    {
+                        this.WriteMessage(exception.Message);
+                        this.WriteMessage(exception.StackTrace);
+                    }
+                    finally
+                    {
+                        serviceHost.Close();
+                    }
+                },
+                this.cancellationTokenSource.Token,
+                TaskCreationOptions.LongRunning,
+                TaskScheduler.Default)
+                .ContinueWith(T => this.WriteMessage("Host stopped."), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
     }
 }

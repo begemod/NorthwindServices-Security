@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ffe203af-6df1-482d-ab46-11a9ed373f04" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item.wsdl" MetadataType="Wsdl" ID="73a68376-543b-4193-b374-1f1d38ecc22a" SourceId="1" SourceUrl="http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/?wsdl=wsdl0" />
+    <MetadataFile FileName="OrdersService.wsdl" MetadataType="Wsdl" ID="41558cde-dc67-40a0-85cc-21ecbae617b8" SourceId="1" SourceUrl="http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/?wsdl" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="2ebc13f8-73a3-4982-88c4-277fa6885989" SourceId="1" SourceUrl="http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/?xsd=xsd2" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="4fe2f9ff-99d5-4770-ba16-9c74ce4b28d1" SourceId="1" SourceUrl="http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/?disco" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="5eb008e4-b45d-41a8-88f1-021f98c23856" SourceId="1" SourceUrl="http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/?xsd=xsd1" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="4958a6f0-a706-4117-a33c-891f89cbe327" SourceId="1" SourceUrl="http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
