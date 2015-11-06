@@ -48,14 +48,16 @@
   <ItemGroup>
     <Compile Include="ConsoleMessagesContainer.cs" />
     <Compile Include="IMessagesContainer.cs" />
-    <Compile Include="NortwindWCFServicesHost.cs">
+    <Compile Include="NortwindWCFServiceHostsManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="NortwindWCFServicesHost.Designer.cs">
-      <DependentUpon>NortwindWCFServicesHost.cs</DependentUpon>
+    <Compile Include="NortwindWCFServiceHostsManager.Designer.cs">
+      <DependentUpon>NortwindWCFServiceHostsManager.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceHostRunner.cs" />
+    <Compile Include="ServiceHostRunnerState.cs" />
     <Compile Include="ServiceHostsFactory.cs" />
   </ItemGroup>
   <ItemGroup>

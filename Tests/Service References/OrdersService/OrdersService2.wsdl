@@ -49,6 +49,12 @@
   <wsdl:message name="IOrdersService_CloseOrder_OutputMessage">
     <wsdl:part name="parameters" element="tns:CloseOrderResponse" />
   </wsdl:message>
+  <wsdl:message name="IOrdersService_SimulateLongRunningOperation_InputMessage">
+    <wsdl:part name="parameters" element="tns:SimulateLongRunningOperation" />
+  </wsdl:message>
+  <wsdl:message name="IOrdersService_SimulateLongRunningOperation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SimulateLongRunningOperationResponse" />
+  </wsdl:message>
   <wsdl:message name="IOrdersSubscriptionService_Subscribe_InputMessage">
     <wsdl:part name="parameters" element="tns:Subscribe" />
   </wsdl:message>
@@ -92,6 +98,10 @@
     <wsdl:operation name="CloseOrder">
       <wsdl:input wsaw:Action="http://epam.com/NorthwindService/IOrdersService/CloseOrder" message="tns:IOrdersService_CloseOrder_InputMessage" />
       <wsdl:output wsaw:Action="http://epam.com/NorthwindService/IOrdersService/CloseOrderResponse" message="tns:IOrdersService_CloseOrder_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SimulateLongRunningOperation">
+      <wsdl:input wsaw:Action="http://epam.com/NorthwindService/IOrdersService/SimulateLongRunningOperation" message="tns:IOrdersService_SimulateLongRunningOperation_InputMessage" />
+      <wsdl:output wsaw:Action="http://epam.com/NorthwindService/IOrdersService/SimulateLongRunningOperationResponse" message="tns:IOrdersService_SimulateLongRunningOperation_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IOrdersSubscriptionService">

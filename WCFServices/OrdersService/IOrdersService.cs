@@ -27,5 +27,8 @@
 
         [OperationContract]
         void CloseOrder(int orderId);
+
+        [OperationContract]
+        void SimulateLongRunningOperation(byte delayInSeconds);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace WindowsServiceHosting
 {
-    partial class NortwindWCFServicesHost
+    partial class NortwindWCFServiceHostsManager
     {
         /// <summary> 
         /// Required designer variable.

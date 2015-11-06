@@ -91,6 +91,18 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="SimulateLongRunningOperation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="delayInSeconds" type="xs:unsignedByte" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SimulateLongRunningOperationResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Subscribe">
     <xs:complexType>
       <xs:sequence>

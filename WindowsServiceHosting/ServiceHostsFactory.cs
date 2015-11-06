@@ -2,10 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.ServiceModel;
     using System.ServiceModel.Description;
-
     using WCFServices.CategoriesService;
     using WCFServices.OrdersService;
     using WCFServices.OrdersSubscriptionService;
@@ -24,10 +22,14 @@
 
         private static IEnumerable<ServiceHost> GetHosts()
         {
-            return OrdersServiceHost().Union(CategoriesServiceHost());
+            return new List<ServiceHost>
+                       {
+                           GetOrdersServiceHost(),
+                           GetCategoriesServiceHost()
+                       };
         }
 
-        private static IEnumerable<ServiceHost> OrdersServiceHost()
+        private static ServiceHost GetOrdersServiceHost()
         {
             var ordersServiceBaseAddress =
                 new Uri("http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/");
@@ -47,10 +49,10 @@
                 ordersServiceHost.Description.Behaviors.Add(new ServiceMetadataBehavior { HttpGetEnabled = true });
             }
 
-            yield return ordersServiceHost;
+            return ordersServiceHost;
         }
 
-        private static IEnumerable<ServiceHost> CategoriesServiceHost()
+        private static ServiceHost GetCategoriesServiceHost()
         {
             var categoriesServiceBaseAddress =
                 new Uri("http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/CategoriesService/");
@@ -74,7 +76,7 @@
                 categoriesServiceHost.Description.Behaviors.Add(new ServiceMetadataBehavior { HttpGetEnabled = true });
             }
 
-            yield return categoriesServiceHost;
+            return categoriesServiceHost;
         }
     }
 }

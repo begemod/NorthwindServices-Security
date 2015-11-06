@@ -687,6 +687,14 @@ namespace Tests.OrdersService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://epam.com/NorthwindService/IOrdersService/CloseOrder", ReplyAction="http://epam.com/NorthwindService/IOrdersService/CloseOrderResponse")]
         System.Threading.Tasks.Task CloseOrderAsync(int orderId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://epam.com/NorthwindService/IOrdersService/SimulateLongRunningOperation", ReplyAction="http://epam.com/NorthwindService/IOrdersService/SimulateLongRunningOperationRespo" +
+            "nse")]
+        void SimulateLongRunningOperation(byte delayInSeconds);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://epam.com/NorthwindService/IOrdersService/SimulateLongRunningOperation", ReplyAction="http://epam.com/NorthwindService/IOrdersService/SimulateLongRunningOperationRespo" +
+            "nse")]
+        System.Threading.Tasks.Task SimulateLongRunningOperationAsync(byte delayInSeconds);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -770,6 +778,14 @@ namespace Tests.OrdersService {
         
         public System.Threading.Tasks.Task CloseOrderAsync(int orderId) {
             return base.Channel.CloseOrderAsync(orderId);
+        }
+        
+        public void SimulateLongRunningOperation(byte delayInSeconds) {
+            base.Channel.SimulateLongRunningOperation(delayInSeconds);
+        }
+        
+        public System.Threading.Tasks.Task SimulateLongRunningOperationAsync(byte delayInSeconds) {
+            return base.Channel.SimulateLongRunningOperationAsync(delayInSeconds);
         }
     }
     

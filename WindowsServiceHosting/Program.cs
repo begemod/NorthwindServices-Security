@@ -2,12 +2,13 @@
 {
     using System;
     using System.Threading;
+    using System.Threading.Tasks;
 
     public static class Program
     {
         public const string ServiceName = "NortwindWCFServicesHost";
 
-        private static NortwindWCFServicesHost servicesHost;
+        private static NortwindWCFServiceHostsManager servicesHost;
         private static ManualResetEvent msResetEvent = new ManualResetEvent(false);
 
         /// <summary>
@@ -15,7 +16,7 @@
         /// </summary>
         public static void Main(string[] args)
         {
-            if (args.Length > 0 && args[0].Contains("commandline"))
+            if (args.Length > 0 && args[0].ToLower().Contains("commandline"))
             {
                 RunAsCommandLine();
             }
@@ -29,9 +30,9 @@
         {
             try
             {
-                Console.CancelKeyPress += ConsoleCancelKeyPress;
+                Console.CancelKeyPress += ConsoleCancelKeyPressEventHandler;
 
-                servicesHost = new NortwindWCFServicesHost(new ConsoleMessagesContainer());
+                servicesHost = new NortwindWCFServiceHostsManager(new ConsoleMessagesContainer());
                 servicesHost.StartServer();
 
                 Console.WriteLine("Server started. Press Ctrl+C to shutdown the server...");
@@ -49,12 +50,14 @@
             }
         }
 
-        private static void ConsoleCancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        private static void ConsoleCancelKeyPressEventHandler(object sender, ConsoleCancelEventArgs e)
         {
             if (servicesHost != null)
             {
                 servicesHost.StopServer();
-                Console.WriteLine("Server stopped.");
+
+                Console.WriteLine("Server stopped. Press Enter to exit.");
+                Console.ReadLine();
             }
 
             msResetEvent.Set();

@@ -314,6 +314,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SimulateLongRunningOperation">
+      <soap:operation soapAction="http://epam.com/NorthwindService/IOrdersService/SimulateLongRunningOperation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="NetTcpBinding_IOrdersService" type="i0:IOrdersService">
     <wsp:PolicyReference URI="#NetTcpBinding_IOrdersService_policy" />
@@ -374,6 +383,15 @@
     </wsdl:operation>
     <wsdl:operation name="CloseOrder">
       <soap12:operation soapAction="http://epam.com/NorthwindService/IOrdersService/CloseOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimulateLongRunningOperation">
+      <soap12:operation soapAction="http://epam.com/NorthwindService/IOrdersService/SimulateLongRunningOperation" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

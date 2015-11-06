@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.ServiceModel;
+    using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
     using DAL.DataServices;
@@ -162,6 +163,11 @@
             {
                 throw new FaultException(new FaultReason(exception.Message), new FaultCode("Error"));
             }
+        }
+
+        public void SimulateLongRunningOperation(byte delayInSeconds)
+        {
+            Thread.Sleep(delayInSeconds * 1000);
         }
 
         #endregion
