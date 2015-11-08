@@ -1,6 +1,6 @@
 ﻿namespace WindowsServiceHosting
 {
-    public interface IMessagesContainer
+    public interface ILogger
     {
         void AddMessage(string message);
 

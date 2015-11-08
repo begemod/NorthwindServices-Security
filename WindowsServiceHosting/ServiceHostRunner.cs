@@ -3,12 +3,11 @@
     using System;
     using System.ServiceModel;
     using System.Threading;
-    using System.Threading.Tasks;
 
     public class ServiceHostRunner
     {
         private readonly ServiceHost serviceHost;
-        private readonly IMessagesContainer messagesContainer;
+        private readonly ILogger messagesContainer;
         private readonly ManualResetEvent serviceHostResetEvent = new ManualResetEvent(false);
 
         public ServiceHostRunner(ServiceHost serviceHost)
@@ -21,7 +20,7 @@
             this.serviceHost = serviceHost;
         }
 
-        public ServiceHostRunner(ServiceHost serviceHost, IMessagesContainer messagesContainer)
+        public ServiceHostRunner(ServiceHost serviceHost, ILogger messagesContainer)
             : this(serviceHost)
         {
             this.messagesContainer = messagesContainer;
@@ -56,33 +55,31 @@
         {
             var host = (ServiceHost)asyncResult.AsyncState;
 
-            var action = new Action(() =>
+            try
+            {
+                this.serviceHostResetEvent.Reset();
+
+                host.EndOpen(asyncResult);
+
+                this.WriteMessage(string.Format("Host for {0} is running", host.Description.ServiceType));
+                this.WriteMessage(string.Empty);
+
+                this.serviceHostResetEvent.WaitOne();
+            }
+            catch (CommunicationException exception)
+            {
+                this.WriteError(string.Format("Service host opening for {0} failed.", host.Description.ServiceType));
+                this.WriteMessage(string.Empty);
+                this.WriteError(exception.Message);
+                this.WriteError(exception.StackTrace);
+            }
+            finally
+            {
+                if (host.State == CommunicationState.Opened)
                 {
-                    try
-                    {
-                        host.EndOpen(asyncResult);
-
-                        this.WriteMessage(string.Format("Host for {0} is running", host.Description.ServiceType));
-                        this.WriteMessage(string.Empty);
-
-                        this.serviceHostResetEvent.WaitOne();
-                    }
-                    catch (CommunicationException exception)
-                    {
-                        this.WriteError(string.Format("Service host opening for {0} failed.", host.Description.ServiceType));
-                        this.WriteMessage(string.Empty);
-                        this.WriteError(exception.Message);
-                        this.WriteError(exception.StackTrace);
-                    }
-                    finally
-                    {
-                        host.BeginClose(this.OnCloseComplete, host);
-                    }
-                });
-
-            this.serviceHostResetEvent.Reset();
-
-            Task.Factory.StartNew(action, TaskCreationOptions.LongRunning);
+                    host.BeginClose(this.OnCloseComplete, host);
+                }
+            }
         }
 
         private void OnCloseComplete(IAsyncResult asyncResult)

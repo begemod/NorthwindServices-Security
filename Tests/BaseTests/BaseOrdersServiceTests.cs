@@ -6,14 +6,11 @@
 
     public class BaseOrdersServiceTests
     {
-        protected void GetAllTest(string endpointConfigurationName)
+        protected void GetAllTest(IOrdersService client)
         {
-            using (var client = new OrdersServiceClient(endpointConfigurationName))
-            {
-                var allOrders = client.GetAll();
+            var allOrders = client.GetAll();
 
-                Assert.IsTrue(allOrders != null && allOrders.Any());
-            }
+            Assert.IsTrue(allOrders != null && allOrders.Any());
         }
     }
 }

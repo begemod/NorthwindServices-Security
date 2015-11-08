@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class ConsoleMessagesContainer : IMessagesContainer
+    public class ConsoleLogger : ILogger
     {
         public void AddMessage(string message)
         {

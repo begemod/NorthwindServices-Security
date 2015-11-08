@@ -14,7 +14,10 @@
         [TestMethod]
         public void GetAllTest()
         {
-            this.GetAllTest(BasicHttpBindingIOrdersService);
+            using (var client = new OrdersServiceClient(BasicHttpBindingIOrdersService))
+            {
+                this.GetAllTest(client);
+            }
         }
 
         [TestMethod]

@@ -3,21 +3,20 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.ServiceProcess;
     using System.Threading;
     using System.Threading.Tasks;
 
-    public partial class NortwindWCFServiceHostsManager : ServiceBase
+    public class NortwindWCFServiceHostsManager
     {
-        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly List<ServiceHostRunner> hostRunners = new List<ServiceHostRunner>();
 
-        private readonly IMessagesContainer messagesContainer;
+        private readonly ILogger messagesContainer;
 
-        public NortwindWCFServiceHostsManager(IMessagesContainer messagesContainer)
+        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+        public NortwindWCFServiceHostsManager(ILogger messagesContainer)
         {
             this.messagesContainer = messagesContainer;
-            this.InitializeComponent();
         }
 
         public void StartServer()
@@ -38,12 +37,34 @@
             }
         }
 
-        protected override void OnStart(string[] args)
+        public bool Start()
         {
-        }
+            try
+            {
+                this.StartServer();
+                this.WriteMessage(string.Format("Service started at {0}.", DateTime.Now));
+            }
+            catch
+            {
+                return false;
+            }
 
-        protected override void OnStop()
+            return true;
+        }
+        
+        public bool Stop()
         {
+            try
+            {
+                this.StopServer();
+                this.WriteMessage("Service stopped.");
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void WriteMessage(string message)
