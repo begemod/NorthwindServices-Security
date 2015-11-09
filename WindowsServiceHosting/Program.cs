@@ -1,14 +1,14 @@
 ﻿namespace WindowsServiceHosting
 {
     using System;
-    using System.Linq;
+    using System.ServiceProcess;
     using System.Threading;
-    using Topshelf;
+    using WindowsServiceHosting.Loggers;
 
     public static class Program
     {
-        private const string ServiceName = "NortwindWCFServicesHost";
-        private const string ServiceDescription = "Northwind WCF services host";
+        public const string ServiceName = "NortwindWCFServicesHost";
+        public const string ServiceDescription = "Northwind WCF services host";
 
         private static readonly ManualResetEvent UserInteractiveResetEvent = new ManualResetEvent(false);
         private static NortwindWCFServiceHostsManager servicesHost;
@@ -35,7 +35,7 @@
                 Console.CancelKeyPress += ConsoleCancelKeyPressEventHandler;
 
                 servicesHost = new NortwindWCFServiceHostsManager(new ConsoleLogger());
-                servicesHost.StartServer();
+                servicesHost.Start();
 
                 Console.WriteLine("Server started. Press Ctrl+C to shutdown the server...");
                 Console.WriteLine();
@@ -56,7 +56,7 @@
         {
             if (servicesHost != null)
             {
-                servicesHost.StopServer();
+                servicesHost.Stop();
 
                 Console.WriteLine("Server stopped. Press Enter to exit.");
                 Console.ReadLine();
@@ -67,38 +67,12 @@
 
         private static void RunService()
         {
-            try
+            var servicesToRun = new ServiceBase[]
             {
-                var host = HostFactory.New(x =>
-                        {
-                            x.Service<NortwindWCFServiceHostsManager>(
-                                s =>
-                                {
-                                    s.ConstructUsing(n => new NortwindWCFServiceHostsManager(new ConsoleLogger()));
-                                    s.WhenStarted(n => n.Start());
-                                    s.WhenStopped(n => n.Stop());
-                                });
+                new ServiceInstance()
+            };
 
-                            x.SetServiceName(ServiceName);
-                            x.SetDisplayName(ServiceName);
-                            x.SetDescription(ServiceDescription);
-                            x.SetInstanceName(ServiceName);
-
-                            x.StartAutomatically();
-                            x.RunAsLocalService();
-                        });
-
-                host.Run();
-            }
-            catch (TopshelfException exception)
-            {
-                Console.WriteLine("There are some errors on starting the service:");
-                Console.WriteLine("Press Enter to exit.");
-                Console.WriteLine(exception.Message);
-                Console.ReadLine();
-            }
-
-            ////ServiceBase.Run(new NortwindWCFServicesHost());
+            ServiceBase.Run(servicesToRun);
         }
     }
 }

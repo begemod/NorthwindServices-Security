@@ -1,4 +1,4 @@
-﻿namespace WindowsServiceHosting
+﻿namespace WindowsServiceHosting.Loggers
 {
     using System;
 

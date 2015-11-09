@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
-    using System.Threading.Tasks;
+    using WindowsServiceHosting.Loggers;
 
     public class NortwindWCFServiceHostsManager
     {
@@ -12,29 +12,9 @@
 
         private readonly ILogger messagesContainer;
 
-        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-
         public NortwindWCFServiceHostsManager(ILogger messagesContainer)
         {
             this.messagesContainer = messagesContainer;
-        }
-
-        public void StartServer()
-        {
-            this.RunAllHosts();
-        }
-
-        public void StopServer()
-        {
-            if (this.hostRunners.Any())
-            {
-                this.hostRunners.ForEach(h => h.Stop());
-
-                while (this.hostRunners.Any(h => h.State == ServiceHostRunnerState.Running))
-                {
-                    Thread.Sleep(100);
-                }
-            }
         }
 
         public bool Start()
@@ -44,8 +24,10 @@
                 this.StartServer();
                 this.WriteMessage(string.Format("Service started at {0}.", DateTime.Now));
             }
-            catch
+            catch (Exception exception)
             {
+                this.WriteError("An error occured on attempting to start the service.");
+                this.WriteError(exception.ToString());
                 return false;
             }
 
@@ -57,14 +39,34 @@
             try
             {
                 this.StopServer();
-                this.WriteMessage("Service stopped.");
+                this.WriteMessage(string.Format("Service stopped at {0}.", DateTime.Now));
             }
-            catch
+            catch (Exception exception)
             {
+                this.WriteError("An error occured on attempting to stop the service.");
+                this.WriteError(exception.ToString());
                 return false;
             }
 
             return true;
+        }
+
+        private void StartServer()
+        {
+            this.RunAllHosts();
+        }
+
+        private void StopServer()
+        {
+            if (this.hostRunners.Any())
+            {
+                this.hostRunners.ForEach(h => h.Stop());
+
+                while (this.hostRunners.Any(h => h.State == ServiceHostRunnerState.Running))
+                {
+                    Thread.Sleep(100);
+                }
+            }
         }
 
         private void WriteMessage(string message)

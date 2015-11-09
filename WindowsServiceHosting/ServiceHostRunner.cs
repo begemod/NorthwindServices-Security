@@ -4,6 +4,8 @@
     using System.ServiceModel;
     using System.Threading;
 
+    using WindowsServiceHosting.Loggers;
+
     public class ServiceHostRunner
     {
         private readonly ServiceHost serviceHost;

@@ -31,8 +31,7 @@
 
         private static ServiceHost GetOrdersServiceHost()
         {
-            var ordersServiceBaseAddress =
-                new Uri("http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/");
+            var ordersServiceBaseAddress = new Uri("http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/");
 
             var orderServiceNetTcpAddress = new Uri("net.tcp://epruizhw0228:809/NorthwindWCFServices/OrdersService");
 
@@ -54,8 +53,7 @@
 
         private static ServiceHost GetCategoriesServiceHost()
         {
-            var categoriesServiceBaseAddress =
-                new Uri("http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/CategoriesService/");
+            var categoriesServiceBaseAddress = new Uri("http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/CategoriesService/");
 
             var categoriesServiceNetTcpAddress = new Uri("net.tcp://epruizhw0228:810/NorthwindWCFServices/CategoriesService");
 
