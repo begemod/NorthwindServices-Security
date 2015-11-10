@@ -10,6 +10,7 @@
     public class OrdersServiceTests : BaseOrdersServiceTests
     {
         private const string BasicHttpBindingIOrdersService = "BasicHttpBinding_IOrdersService1";
+        private const string NetTcpBindingIOrdersService = "NetTcpBinding_IOrdersService1";
 
         [TestMethod]
         public void GetAllTest()
@@ -23,13 +24,12 @@
         [TestMethod]
         public void SimulateLongRunningOperationTest()
         {
-            using (var client = new OrdersServiceClient(BasicHttpBindingIOrdersService))
+            using (var client = new OrdersServiceClient(NetTcpBindingIOrdersService))
             {
-                const byte OperationRunningDurationInSeconds = 20;
+                const byte OperationRunningDurationInSeconds = 10;
 
                 var startAt = DateTime.Now;
                 Console.WriteLine(DateTime.Now.ToLongTimeString());
-
 
                 client.SimulateLongRunningOperation(OperationRunningDurationInSeconds);
 

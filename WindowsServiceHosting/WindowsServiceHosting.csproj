@@ -62,6 +62,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceHostRunner.cs" />
     <Compile Include="ServiceHostRunnerState.cs" />
+    <Compile Include="ServiceHostSettings.cs" />
     <Compile Include="ServiceHostsFactory.cs" />
     <Compile Include="ServiceInstance.cs">
       <SubType>Component</SubType>

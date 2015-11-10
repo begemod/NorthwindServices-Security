@@ -28,9 +28,9 @@
             this.serviceProcessInstaller.Username = null;
 
             // serviceInstaller
-            this.serviceInstaller.DisplayName = Program.ServiceName;
-            this.serviceInstaller.ServiceName = Program.ServiceName;
-            this.serviceInstaller.Description = Program.ServiceDescription;
+            this.serviceInstaller.DisplayName = ServiceHostSettings.ServiceName;
+            this.serviceInstaller.ServiceName = ServiceHostSettings.ServiceName;
+            this.serviceInstaller.Description = ServiceHostSettings.ServiceDescription;
             this.serviceInstaller.StartType = ServiceStartMode.Manual;
 
             // ProjectInstaller

@@ -8,7 +8,7 @@
         {
             using (var log = new EventLog("Application"))
             {
-                log.Source = "NortwindWCFServiceHostLog";
+                log.Source = ServiceHostSettings.ServiceName;
                 log.WriteEntry(message, EventLogEntryType.Information);
             }
         }
@@ -17,7 +17,7 @@
         {
             using (var log = new EventLog("Application"))
             {
-                log.Source = "NortwindWCFServiceHostLog";
+                log.Source = ServiceHostSettings.ServiceName;
                 log.WriteEntry(errorMessage, EventLogEntryType.Error);
             }
         }

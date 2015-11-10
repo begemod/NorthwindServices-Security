@@ -32,7 +32,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            this.ServiceName = Program.ServiceName;
+            this.ServiceName = ServiceHostSettings.ServiceName;
         }
 
         #endregion

@@ -7,9 +7,6 @@
 
     public static class Program
     {
-        public const string ServiceName = "NortwindWCFServicesHost";
-        public const string ServiceDescription = "Northwind WCF services host";
-
         private static readonly ManualResetEvent UserInteractiveResetEvent = new ManualResetEvent(false);
         private static NortwindWCFServiceHostsManager servicesHost;
 
