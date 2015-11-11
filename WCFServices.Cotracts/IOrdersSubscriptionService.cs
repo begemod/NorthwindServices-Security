@@ -1,4 +1,4 @@
-﻿namespace WCFServices.OrdersSubscriptionService
+﻿namespace WCFServices.Cotracts
 {
     using System.ServiceModel;
 

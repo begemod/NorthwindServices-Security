@@ -1,4 +1,4 @@
-﻿namespace WCFServices.CategoriesService
+﻿namespace WCFServices.Cotracts
 {
     using System.Collections.Generic;
     using System.IO;

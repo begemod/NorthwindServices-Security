@@ -58,21 +58,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoriesService\CategoriesService.cs" />
-    <Compile Include="DataContracts\OrderDetailDTO.cs" />
-    <Compile Include="DataContracts\OrderDTO.cs" />
-    <Compile Include="DataContracts\OrderState.cs" />
-    <Compile Include="DataContracts\ProductDTO.cs" />
-    <Compile Include="CategoriesService\ICategoriesService.cs" />
-    <Compile Include="DataContracts\SendingCategory.cs" />
-    <Compile Include="OrdersService\IOrdersService.cs" />
     <Compile Include="OrdersService\OrdersService.cs" />
-    <Compile Include="OrdersSubscriptionService\IOrdersSubscriptionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{430fccba-1260-4ee5-9d97-ee6acd968a15}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WCFServices.Cotracts\WCFServices.Cotracts.csproj">
+      <Project>{ca577d19-cd52-4b7f-a9f0-60b7d9ff04a7}</Project>
+      <Name>WCFServices.Cotracts</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

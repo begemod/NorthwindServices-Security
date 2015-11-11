@@ -5,8 +5,8 @@
     using System.ServiceModel;
     using System.ServiceModel.Description;
     using WCFServices.CategoriesService;
+    using WCFServices.Cotracts;
     using WCFServices.OrdersService;
-    using WCFServices.OrdersSubscriptionService;
 
     internal static class ServiceHostsFactory
     {

@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
+    using WCFServices.Cotracts.DataContracts;
+
     [DataContract(Namespace = "http://epam.com/NorthwindServices")]
     [KnownType(typeof(OrderDetailDTO))]
     [KnownType(typeof(ProductDTO))]

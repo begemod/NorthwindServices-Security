@@ -1,4 +1,4 @@
-﻿namespace WCFServices.OrdersService
+﻿namespace WCFServices.Cotracts
 {
     using System.Collections.Generic;
     using System.ServiceModel;

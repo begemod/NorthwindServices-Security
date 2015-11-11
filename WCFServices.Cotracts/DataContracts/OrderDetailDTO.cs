@@ -2,6 +2,8 @@
 {
     using System.Runtime.Serialization;
 
+    using WCFServices.Cotracts.DataContracts;
+
     [DataContract(Namespace = "http://epam.com/NorthwindServices")]
     public class OrderDetailDTO
     {

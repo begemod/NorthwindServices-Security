@@ -5,6 +5,7 @@
     using System.ServiceModel;
     using DAL.DataServices;
     using DAL.Infrastructure;
+    using WCFServices.Cotracts;
     using WCFServices.DataContracts;
 
     public class CategoriesService : ICategoriesService

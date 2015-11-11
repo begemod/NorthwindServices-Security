@@ -1,7 +1,6 @@
 ﻿namespace Tests.SelfHostingServiceTests
 {
     using System;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Tests.BaseTests;
     using Tests.OrdersServiceSelfHosting;
@@ -9,22 +8,27 @@
     [TestClass]
     public class OrdersServiceTests : BaseOrdersServiceTests
     {
-        private const string BasicHttpBindingIOrdersService = "BasicHttpBinding_IOrdersService1";
-        private const string NetTcpBindingIOrdersService = "NetTcpBinding_IOrdersService1";
+        private const string BasicHttpBinding_IOrdersService_IIS = "BasicHttpBinding_IOrdersService_IIS";
+        private const string NetTcpBinding_IOrdersService_IIS = "NetTcpBinding_IOrdersService_IIS";
 
         [TestMethod]
         public void GetAllTest()
         {
-            using (var client = new OrdersServiceClient(BasicHttpBindingIOrdersService))
-            {
-                this.GetAllTest(client);
-            }
+            this.GetAllTest(BasicHttpBinding_IOrdersService_IIS);
+            this.GetAllTest(NetTcpBinding_IOrdersService_IIS);
+        }
+
+        [TestMethod]
+        public void GetByIdTest()
+        {
+            this.GetByIdTest(BasicHttpBinding_IOrdersService_IIS);
+            this.GetByIdTest(NetTcpBinding_IOrdersService_IIS);
         }
 
         [TestMethod]
         public void SimulateLongRunningOperationTest()
         {
-            using (var client = new OrdersServiceClient(NetTcpBindingIOrdersService))
+            using (var client = new OrdersServiceClient(NetTcpBinding_IOrdersService_IIS))
             {
                 const byte OperationRunningDurationInSeconds = 10;
 

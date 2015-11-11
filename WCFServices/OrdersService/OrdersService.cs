@@ -11,8 +11,9 @@
     using DAL.DataServices;
     using DAL.Entities;
     using DAL.Infrastructure;
+    using WCFServices.Cotracts;
+    using WCFServices.Cotracts.DataContracts;
     using WCFServices.DataContracts;
-    using WCFServices.OrdersSubscriptionService;
 
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class OrdersService : IOrdersService, IOrdersSubscriptionService
