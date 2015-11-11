@@ -199,7 +199,7 @@
         protected void SubscribeUnsubscribeOnOrderStatusChangingEventsTest(string endpointConfigurationName)
         {
             var callbacksClient = new SubscriptionServiceClient();
-            using (var channel = new ChannelFactory<IOrdersSubscriptionChannel>(endpointConfigurationName))
+            using (var channel = new DuplexChannelFactory<IOrdersSubscriptionChannel>(callbacksClient, endpointConfigurationName))
             {
                 var clientIdentifier = Guid.NewGuid().ToString();
 
