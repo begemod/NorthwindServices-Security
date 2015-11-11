@@ -1,4 +1,4 @@
-﻿namespace Tests.IISHostingServicesTests
+﻿namespace Tests.SelfHostingServiceTests
 {
     using System.ServiceModel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,8 +7,8 @@
     [TestClass]
     public class CategoriesServiceTests : BaseCategoriesServiceTests
     {
-        private const string BasicHttpBindingICategoriesService = "BasicHttpBinding_ICategoriesService_IIS";
-        private const string NetTcpBindingICategoriesService = "NetTcpBinding_ICategoriesService_IIS";
+        private const string BasicHttpBindingICategoriesService = "BasicHttpBinding_ICategoriesService_SH";
+        private const string NetTcpBindingICategoriesService = "NetTcpBinding_ICategoriesService_SH";
 
         [TestMethod]
         public void GetCategoryNamesTest()
@@ -36,8 +36,8 @@
         [ExpectedException(typeof(FaultException))]
         public void SaveCategoryImageNullCategoryNameFaultTest()
         {
-           this.SaveCategoryImageNullCategoryNameFaultTest(BasicHttpBindingICategoriesService);
-           this.SaveCategoryImageNullCategoryNameFaultTest(NetTcpBindingICategoriesService);
+            this.SaveCategoryImageNullCategoryNameFaultTest(BasicHttpBindingICategoriesService);
+            this.SaveCategoryImageNullCategoryNameFaultTest(NetTcpBindingICategoriesService);
         }
 
         [TestMethod]

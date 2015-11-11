@@ -1,49 +1,118 @@
 ﻿namespace Tests.SelfHostingServiceTests
 {
-    using System;
+    using System.ServiceModel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Tests.BaseTests;
-    using Tests.OrdersServiceSelfHosting;
 
     [TestClass]
     public class OrdersServiceTests : BaseOrdersServiceTests
     {
-        private const string BasicHttpBinding_IOrdersService_IIS = "BasicHttpBinding_IOrdersService_IIS";
-        private const string NetTcpBinding_IOrdersService_IIS = "NetTcpBinding_IOrdersService_IIS";
+        private const string BasicHttpBindingIOrdersService = "BasicHttpBinding_IOrdersService_SH";
+        private const string NetTcpBindingIOrdersService = "NetTcpBinding_IOrdersService_SH";
+        private const string WsDualHttpBindingIOrdersSubscriptionService = "WSDualHttpBinding_IOrdersSubscriptionService_SH";
 
         [TestMethod]
         public void GetAllTest()
         {
-            this.GetAllTest(BasicHttpBinding_IOrdersService_IIS);
-            this.GetAllTest(NetTcpBinding_IOrdersService_IIS);
+            this.GetAllTest(BasicHttpBindingIOrdersService);
+            this.GetAllTest(NetTcpBindingIOrdersService);
         }
 
         [TestMethod]
         public void GetByIdTest()
         {
-            this.GetByIdTest(BasicHttpBinding_IOrdersService_IIS);
-            this.GetByIdTest(NetTcpBinding_IOrdersService_IIS);
+            this.GetByIdTest(BasicHttpBindingIOrdersService);
+            this.GetByIdTest(NetTcpBindingIOrdersService);
         }
 
         [TestMethod]
-        public void SimulateLongRunningOperationTest()
+        [ExpectedException(typeof(FaultException))]
+        public void CreateNewOrderFaultTest()
         {
-            using (var client = new OrdersServiceClient(NetTcpBinding_IOrdersService_IIS))
-            {
-                const byte OperationRunningDurationInSeconds = 10;
+            this.CreateNewOrderFaultTest(BasicHttpBindingIOrdersService);
+            this.CreateNewOrderFaultTest(NetTcpBindingIOrdersService);
+        }
 
-                var startAt = DateTime.Now;
-                Console.WriteLine(DateTime.Now.ToLongTimeString());
+        [TestMethod]
+        public void CreateNewOrderTest()
+        {
+            this.CreateNewOrderTest(BasicHttpBindingIOrdersService);
+            this.CreateNewOrderTest(NetTcpBindingIOrdersService);
+        }
 
-                client.SimulateLongRunningOperation(OperationRunningDurationInSeconds);
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void UpdateOrderFaultOnNullParameterTest()
+        {
+            this.UpdateOrderFaultOnNullParameterTest(BasicHttpBindingIOrdersService);
+            this.UpdateOrderFaultOnNullParameterTest(NetTcpBindingIOrdersService);
+        }
 
-                var endAt = DateTime.Now;
-                Console.WriteLine(DateTime.Now.ToLongTimeString());
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void UpdateOrderFaultOnAttemptNotInNewStateTest()
+        {
+            this.UpdateOrderFaultOnAttemptNotInNewStateTest(BasicHttpBindingIOrdersService);
+            this.UpdateOrderFaultOnAttemptNotInNewStateTest(NetTcpBindingIOrdersService);
+        }
 
-                var duration = endAt - startAt;
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void DeleteOrderFaultOnAttemptToDeleteNotExistingOrderTest()
+        {
+            this.DeleteOrderFaultOnAttemptToDeleteNotExistingOrderTest(BasicHttpBindingIOrdersService);
+            this.DeleteOrderFaultOnAttemptToDeleteNotExistingOrderTest(NetTcpBindingIOrdersService);
+        }
 
-                Assert.IsTrue(duration.TotalSeconds >= OperationRunningDurationInSeconds);
-            }
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void DeleteOrderFaultOnAttemptToDeleteClosedOrderTest()
+        {
+            this.DeleteOrderFaultOnAttemptToDeleteClosedOrderTest(BasicHttpBindingIOrdersService);
+            this.DeleteOrderFaultOnAttemptToDeleteClosedOrderTest(NetTcpBindingIOrdersService);
+        }
+
+        [TestMethod]
+        public void DeleteOrderTest()
+        {
+            this.DeleteOrderTest(BasicHttpBindingIOrdersService);
+            this.DeleteOrderTest(NetTcpBindingIOrdersService);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void ProcessOrderFaultTest()
+        {
+            this.ProcessOrderFaultTest(BasicHttpBindingIOrdersService);
+            this.ProcessOrderFaultTest(NetTcpBindingIOrdersService);
+        }
+
+        [TestMethod]
+        public void ProcessOrderTest()
+        {
+            this.ProcessOrderTest(BasicHttpBindingIOrdersService);
+            this.ProcessOrderTest(NetTcpBindingIOrdersService);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void CloseOrderFaultTest()
+        {
+            this.CloseOrderFaultTest(BasicHttpBindingIOrdersService);
+            this.CloseOrderFaultTest(NetTcpBindingIOrdersService);
+        }
+
+        [TestMethod]
+        public void CloseOrderTest()
+        {
+            this.CloseOrderTest(BasicHttpBindingIOrdersService);
+            this.CloseOrderTest(NetTcpBindingIOrdersService);
+        }
+
+        [TestMethod]
+        public void SubscribeUnsubscribeOnOrderStatusChangingEventsTest()
+        {
+            this.SubscribeUnsubscribeOnOrderStatusChangingEventsTest(WsDualHttpBindingIOrdersSubscriptionService);
         }
     }
 }

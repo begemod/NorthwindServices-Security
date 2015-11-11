@@ -53,165 +53,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BaseTests\BaseCategoriesServiceTests.cs" />
     <Compile Include="BaseTests\BaseOrdersServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IISHostingServicesTests\CategoriesServiceTests.cs" />
     <Compile Include="IISHostingServicesTests\OrdersServiceTests.cs" />
+    <Compile Include="SelfHostingServiceTests\CategoriesServiceTests.cs" />
     <Compile Include="SelfHostingServiceTests\OrdersServiceTests.cs" />
-    <Compile Include="Service References\CategoriesServiceSelfHosting\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\CategoriesService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\OrdersServiceSelfHosting\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\OrdersService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\CategoriesServiceSelfHosting\CategoriesService.wsdl" />
-    <None Include="Service References\CategoriesServiceSelfHosting\item.wsdl" />
-    <None Include="Service References\CategoriesServiceSelfHosting\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CategoriesServiceSelfHosting\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CategoriesServiceSelfHosting\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CategoriesServiceSelfHosting\item3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CategoriesServiceSelfHosting\Tests.CategoriesServiceSelfHosting.SaveCategoryImageResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CategoriesService\CategoriesService2.wsdl" />
-    <None Include="Service References\CategoriesService\CategoriesService21.wsdl" />
-    <None Include="Service References\CategoriesService\CategoriesService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CategoriesService\CategoriesService41.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CategoriesService\CategoriesService42.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CategoriesService\CategoriesService43.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CategoriesService\Tests.CategoriesService.SaveCategoryImageResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\OrdersServiceSelfHosting\item.wsdl" />
-    <None Include="Service References\OrdersServiceSelfHosting\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\OrdersServiceSelfHosting\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\OrdersServiceSelfHosting\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\OrdersServiceSelfHosting\OrdersService.wsdl" />
-    <None Include="Service References\OrdersServiceSelfHosting\Tests.OrdersServiceSelfHosting.OrderDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\OrdersService\OrdersService2.wsdl" />
-    <None Include="Service References\OrdersService\OrdersService21.wsdl" />
-    <None Include="Service References\OrdersService\OrdersService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\OrdersService\OrdersService31.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\OrdersService\OrdersService32.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\OrdersService\Tests.OrdersService.OrderDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\CategoriesServiceSelfHosting\" />
-    <WCFMetadataStorage Include="Service References\CategoriesService\" />
-    <WCFMetadataStorage Include="Service References\OrdersServiceSelfHosting\" />
-    <WCFMetadataStorage Include="Service References\OrdersService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CategoriesService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CategoriesService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CategoriesService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OrdersService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OrdersService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OrdersService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OrdersService\OrdersService1.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CategoriesService\CategoriesService1.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OrdersServiceSelfHosting\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OrdersServiceSelfHosting\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OrdersServiceSelfHosting\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\OrdersServiceSelfHosting\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CategoriesServiceSelfHosting\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CategoriesServiceSelfHosting\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CategoriesServiceSelfHosting\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CategoriesServiceSelfHosting\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WCFServices.Cotracts\WCFServices.Cotracts.csproj">
