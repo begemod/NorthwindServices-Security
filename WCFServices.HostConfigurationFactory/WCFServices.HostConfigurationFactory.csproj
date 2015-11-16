@@ -4,26 +4,24 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5F43ADB5-541B-4EBC-ABBD-55357CD8DDF6}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{3CDD520F-7C92-45B2-B0B8-4F04DA8AA80F}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsServiceHosting</RootNamespace>
-    <AssemblyName>WindowsServiceHosting</AssemblyName>
+    <RootNamespace>WCFServices.HostConfigurationFactory</RootNamespace>
+    <AssemblyName>WCFServices.HostConfigurationFactory</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>Output\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,57 +29,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Management" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Loggers\ConsoleLogger.cs" />
-    <Compile Include="Loggers\ILogger.cs" />
-    <Compile Include="Loggers\WindowsEventLogger.cs" />
-    <Compile Include="NortwindWCFServiceHostsManager.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="ProjectInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ProjectInstaller.Designer.cs">
-      <DependentUpon>ProjectInstaller.cs</DependentUpon>
-    </Compile>
+    <Compile Include="CategoriesServiceHostConfigurationBuilder.cs" />
+    <Compile Include="OrdersServiceHostConfigurationBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceHostRunner.cs" />
-    <Compile Include="ServiceHostRunnerState.cs" />
-    <Compile Include="ServiceHostSettings.cs" />
-    <Compile Include="ServiceHostsFactory.cs" />
-    <Compile Include="ServiceInstance.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ServiceInstance.Designer.cs">
-      <DependentUpon>ServiceInstance.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
+    <Compile Include="ServiceHostConfigurationBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WCFServices.Cotracts\WCFServices.Cotracts.csproj">
       <Project>{ca577d19-cd52-4b7f-a9f0-60b7d9ff04a7}</Project>
       <Name>WCFServices.Cotracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WCFServices.HostConfigurationFactory\WCFServices.HostConfigurationFactory.csproj">
-      <Project>{3cdd520f-7c92-45b2-b0b8-4f04da8aa80f}</Project>
-      <Name>WCFServices.HostConfigurationFactory</Name>
     </ProjectReference>
     <ProjectReference Include="..\WCFServices\WCFServices.csproj">
       <Project>{67398600-fd64-4fde-a087-0309eed96f80}</Project>

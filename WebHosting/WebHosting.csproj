@@ -73,6 +73,10 @@
       <Project>{ca577d19-cd52-4b7f-a9f0-60b7d9ff04a7}</Project>
       <Name>WCFServices.Cotracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WCFServices.HostConfigurationFactory\WCFServices.HostConfigurationFactory.csproj">
+      <Project>{3cdd520f-7c92-45b2-b0b8-4f04da8aa80f}</Project>
+      <Name>WCFServices.HostConfigurationFactory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WCFServices\WCFServices.csproj">
       <Project>{67398600-fd64-4fde-a087-0309eed96f80}</Project>
       <Name>WCFServices</Name>
