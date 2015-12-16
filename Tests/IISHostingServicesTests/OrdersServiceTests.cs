@@ -8,8 +8,16 @@
     public class OrdersServiceTests : BaseOrdersServiceTests
     {
         private const string BasicHttpBindingIOrdersService = "BasicHttpBinding_IOrdersService_IIS";
-        private const string NetTcpBindingIOrdersService = "NetTcpBinding_IOrdersService_IIS";
+
+        private const string NetTcpBindingIOrdersService = "BasicHttpBinding_IOrdersService_IIS";//"NetTcpBinding_IOrdersService_IIS";
+
         private const string WsDualHttpBindingIOrdersSubscriptionService = "WSDualHttpBinding_IOrdersSubscriptionService_IIS";
+
+        [ClassCleanup]
+        public static void CleanupClass()
+        {
+            CloseChannelFactories();
+        }
 
         [TestMethod]
         public void GetAllTest()

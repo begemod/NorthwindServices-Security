@@ -1,6 +1,7 @@
 ﻿namespace Tests.BaseTests
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.ServiceModel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,31 +18,42 @@
 
     public class BaseOrdersServiceTests
     {
+        private static readonly Dictionary<string, ChannelFactory<IOrdersServiceChannel>> ChannelFactories = new Dictionary<string, ChannelFactory<IOrdersServiceChannel>>();
+
+        protected static void CloseChannelFactories()
+        {
+            foreach (var cf in ChannelFactories)
+            {
+                var channelFactory = cf.Value;
+
+                if (channelFactory.State == CommunicationState.Faulted)
+                {
+                    channelFactory.Abort();
+                }
+
+                channelFactory.Close();
+            }
+        }
+
         protected void GetAllTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
-            {
-                var client = channel.CreateChannel();
-                var allOrders = client.GetAll();
+            var client = this.GetChannelFactory(endpointConfigurationName).CreateChannel();
+            var allOrders = client.GetAll();
 
-                Assert.IsTrue(allOrders != null && allOrders.Any());
-            }
+            Assert.IsTrue(allOrders != null && allOrders.Any());
         }
 
         protected void GetByIdTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
-            {
-                var client = channel.CreateChannel();
+            var client = this.GetChannelFactory(endpointConfigurationName).CreateChannel();
 
-                var allOrders = client.GetAll();
+            var allOrders = client.GetAll();
 
-                var orderId = allOrders.First().OrderId;
+            var orderId = allOrders.First().OrderId;
 
-                var orderById = client.GetById(orderId);
+            var orderById = client.GetById(orderId);
 
-                Assert.IsNotNull(orderById);
-            }
+            Assert.IsNotNull(orderById);
         }
 
         protected void CreateNewOrderFaultTest(string endpointConfigurationName)
@@ -235,6 +247,16 @@
 
                 Assert.IsTrue(duration.TotalSeconds >= OperationRunningDurationInSeconds);
             }
+        }
+
+        private ChannelFactory<IOrdersServiceChannel> GetChannelFactory(string endpointConfigurationName)
+        {
+            if (!ChannelFactories.ContainsKey(endpointConfigurationName))
+            {
+                ChannelFactories.Add(endpointConfigurationName, new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName));
+            }
+
+            return ChannelFactories[endpointConfigurationName];
         }
 
         private OrderDTO CreateNewOrder(string endpointConfigurationName)
