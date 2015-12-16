@@ -58,7 +58,7 @@
 
         protected void CreateNewOrderFaultTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
+            using (var channel = this.GetChannelFactory(endpointConfigurationName))
             {
                 var client = channel.CreateChannel();
 
@@ -251,12 +251,25 @@
 
         private ChannelFactory<IOrdersServiceChannel> GetChannelFactory(string endpointConfigurationName)
         {
+            ChannelFactory<IOrdersServiceChannel> channelFactory;
+
             if (!ChannelFactories.ContainsKey(endpointConfigurationName))
             {
-                ChannelFactories.Add(endpointConfigurationName, new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName));
+                channelFactory = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
+                ChannelFactories.Add(endpointConfigurationName, channelFactory);
+            }
+            else
+            {
+                channelFactory = ChannelFactories[endpointConfigurationName];
+
+                if (channelFactory.State == CommunicationState.Closing || channelFactory.State == CommunicationState.Closed)
+                {
+                    channelFactory = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
+                    ChannelFactories[endpointConfigurationName] = channelFactory;
+                }
             }
 
-            return ChannelFactories[endpointConfigurationName];
+            return channelFactory;
         }
 
         private OrderDTO CreateNewOrder(string endpointConfigurationName)
