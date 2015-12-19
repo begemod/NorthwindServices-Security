@@ -30,5 +30,8 @@
 
         [OperationContract]
         void SimulateLongRunningOperation(byte delayInSeconds);
+
+        [OperationContract]
+        void GetUnhandledException();
     }
 }

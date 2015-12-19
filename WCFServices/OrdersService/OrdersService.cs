@@ -171,6 +171,11 @@
             Thread.Sleep(delayInSeconds * 1000);
         }
 
+        public void GetUnhandledException()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region IOrdersSubscriptionService members
