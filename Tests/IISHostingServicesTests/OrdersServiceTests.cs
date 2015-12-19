@@ -12,6 +12,8 @@
 
         private const string WsDualHttpBindingIOrdersSubscriptionService = "WSDualHttpBinding_IOrdersSubscriptionService_IIS";
 
+        private const string WsHttpBindingIOrdersService = "WsHttpBinding_IOrdersService_IIS";
+
         [TestMethod]
         public void GetAllTest()
         {
@@ -107,6 +109,12 @@
         public void SubscribeUnsubscribeOnOrderStatusChangingEventsTest()
         {
             this.SubscribeUnsubscribeOnOrderStatusChangingEventsTest(WsDualHttpBindingIOrdersSubscriptionService);
+        }
+
+        [TestMethod]
+        public void GetUnhandledExceptionTest()
+        {
+            this.BaseGetUnhandledExceptionTest(WsHttpBindingIOrdersService);
         }
     }
 }

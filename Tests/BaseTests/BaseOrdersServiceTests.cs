@@ -239,6 +239,30 @@
             }
         }
 
+        protected void BaseGetUnhandledExceptionTest(string endpointConfigurationName)
+        {
+            var channelFactory = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
+
+            var client = channelFactory.CreateChannel();
+
+            try
+            {
+                client.GetUnhandledException();
+
+                Assert.Fail();
+            }
+            catch (CommunicationException)
+            {
+                if (client.State == CommunicationState.Faulted)
+                {
+                    client = channelFactory.CreateChannel();
+                }
+            }
+
+            // ensure that client channel was recreated successfully after exception
+            client.GetAll();
+        }
+
         protected void SimulateLongRunningOperationTest(string endpointConfigurationName)
         {
             using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
