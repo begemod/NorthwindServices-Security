@@ -5,26 +5,26 @@
 
     public class ChannelFactoriesProvider
     {
-        private readonly Dictionary<string, ChannelFactory> _channelFactoriesCollection = new Dictionary<string, ChannelFactory>();
+        private readonly Dictionary<string, ChannelFactory> channelFactoriesCollection = new Dictionary<string, ChannelFactory>();
 
         public ChannelFactory<T> GetChannelFactory<T>(string endpointConfigurationName)
             where T : IClientChannel
         {
             ChannelFactory<T> channelFactory;
 
-            if (!_channelFactoriesCollection.ContainsKey(endpointConfigurationName))
+            if (!this.channelFactoriesCollection.ContainsKey(endpointConfigurationName))
             {
                 channelFactory = new ChannelFactory<T>(endpointConfigurationName);
-                _channelFactoriesCollection.Add(endpointConfigurationName, channelFactory);
+                this.channelFactoriesCollection.Add(endpointConfigurationName, channelFactory);
             }
             else
             {
-                channelFactory = _channelFactoriesCollection[endpointConfigurationName] as ChannelFactory<T>;
+                channelFactory = this.channelFactoriesCollection[endpointConfigurationName] as ChannelFactory<T>;
 
                 if (channelFactory == null || channelFactory.State == CommunicationState.Closing || channelFactory.State == CommunicationState.Closed)
                 {
                     channelFactory = new ChannelFactory<T>(endpointConfigurationName);
-                    _channelFactoriesCollection[endpointConfigurationName] = channelFactory;
+                    this.channelFactoriesCollection[endpointConfigurationName] = channelFactory;
                 }
             }
 
@@ -33,7 +33,7 @@
 
         public void CloseAllChannels()
         {
-            foreach (var channelFactory in _channelFactoriesCollection.Values)
+            foreach (var channelFactory in this.channelFactoriesCollection.Values)
             {
                 if (channelFactory.State == CommunicationState.Faulted)
                 {
