@@ -7,12 +7,10 @@
     public class OrdersServiceTests : BaseOrdersServiceTests
     {
         private const string BasicHttpBindingIOrdersService = "BasicHttpBinding_IOrdersService_IIS";
-
         private const string NetTcpBindingIOrdersService = "BasicHttpBinding_IOrdersService_IIS";//"NetTcpBinding_IOrdersService_IIS";
-
         private const string WsDualHttpBindingIOrdersSubscriptionService = "WSDualHttpBinding_IOrdersSubscriptionService_IIS";
-
         private const string WsHttpBindingIOrdersService = "WsHttpBinding_IOrdersService_IIS";
+        private const string HttpMexEndpointAddress = "http://localhost/NorthwindWCFServices/OrdersService.svc/mex";
 
         [TestMethod]
         public void GetAllTest()
@@ -115,6 +113,12 @@
         public void GetUnhandledExceptionTest()
         {
             this.BaseGetUnhandledExceptionTest(WsHttpBindingIOrdersService);
+        }
+
+        [TestMethod]
+        public void GetMetadataTest()
+        {
+            this.BaseGetMetadataTest(HttpMexEndpointAddress);
         }
     }
 }

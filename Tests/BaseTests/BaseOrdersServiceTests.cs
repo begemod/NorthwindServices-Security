@@ -3,6 +3,8 @@
     using System;
     using System.Linq;
     using System.ServiceModel;
+    using System.ServiceModel.Description;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using WCFServices.Cotracts;
     using WCFServices.DataContracts;
@@ -261,6 +263,21 @@
 
             // ensure that client channel was recreated successfully after exception
             client.GetAll();
+        }
+
+        protected void BaseGetMetadataTest(string endpointAddress)
+        {
+            var client = new MetadataExchangeClient(new Uri(endpointAddress), MetadataExchangeClientMode.HttpGet);
+
+            //client.ResolveMetadataReferences = true;
+
+            var metadata = client.GetMetadata();
+
+            var wsdlImporter = new WsdlImporter(metadata);
+
+            var contracts = wsdlImporter.ImportAllContracts();
+
+            Assert.IsTrue(contracts.Any());
         }
 
         protected void SimulateLongRunningOperationTest(string endpointConfigurationName)
