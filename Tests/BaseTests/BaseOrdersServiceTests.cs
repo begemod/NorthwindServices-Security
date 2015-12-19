@@ -40,154 +40,199 @@
 
         protected void CreateNewOrderFaultTest(string endpointConfigurationName)
         {
-            using (var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
-            {
-                var client = channel.CreateChannel();
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
 
+            var client = channel.CreateChannel();
+
+            try
+            {
                 client.CreateNewOrder(null);
+
+                Assert.Fail();
+            }
+            catch (FaultException)
+            {
             }
         }
 
         protected void CreateNewOrderTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
-            {
-                var newOrder = this.CreateNewOrder(endpointConfigurationName);
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
 
-                var client = channel.CreateChannel();
-                var orderId = client.CreateNewOrder(newOrder);
+            var newOrder = this.CreateNewOrder(endpointConfigurationName);
 
-                Assert.IsTrue(orderId > 0);
+            var client = channel.CreateChannel();
+            var orderId = client.CreateNewOrder(newOrder);
 
-                var newOrderFromDB = client.GetById(orderId);
+            Assert.IsTrue(orderId > 0);
 
-                Assert.IsNotNull(newOrderFromDB);
-                Assert.IsTrue(newOrderFromDB.OrderState.Equals(OrderState.New));
-            }
+            var newOrderFromDB = client.GetById(orderId);
+
+            Assert.IsNotNull(newOrderFromDB);
+            Assert.IsTrue(newOrderFromDB.OrderState.Equals(OrderState.New));
         }
 
         protected void UpdateOrderFaultOnNullParameterTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
+
+            var client = channel.CreateChannel();
+            try
             {
-                var client = channel.CreateChannel();
                 client.UpdateOrder(null);
+
+                Assert.Fail();
+            }
+            catch (FaultException)
+            {
             }
         }
 
         protected void UpdateOrderFaultOnAttemptNotInNewStateTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
+
+            var order = this.GetExistingOrder(endpointConfigurationName, dto => dto.OrderState.Equals(OrderState.InWork) || dto.OrderState.Equals(OrderState.Closed));
+
+            var client = channel.CreateChannel();
+
+            try
             {
-                var order = this.GetExistingOrder(endpointConfigurationName, dto => dto.OrderState.Equals(OrderState.InWork) || dto.OrderState.Equals(OrderState.Closed));
-
-                var client = channel.CreateChannel();
-
                 client.UpdateOrder(order);
+
+                Assert.Fail();
+            }
+            catch (FaultException)
+            {
             }
         }
 
         protected void DeleteOrderFaultOnAttemptToDeleteNotExistingOrderTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
-            {
-                var client = channel.CreateChannel();
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
 
+            var client = channel.CreateChannel();
+
+            try
+            {
                 client.DeleteOrder(-1);
+
+                Assert.Fail();
+            }
+            catch (FaultException)
+            {
             }
         }
 
         protected void DeleteOrderFaultOnAttemptToDeleteClosedOrderTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
+
+            var order = this.GetExistingOrder(endpointConfigurationName, dto => dto.OrderState.Equals(OrderState.Closed));
+
+            if (order != null)
             {
-                var order = this.GetExistingOrder(endpointConfigurationName, dto => dto.OrderState.Equals(OrderState.Closed));
+                var client = channel.CreateChannel();
 
-                if (order != null)
+                try
                 {
-                    var client = channel.CreateChannel();
-
                     client.DeleteOrder(order.OrderId);
+
+                    Assert.Fail();
+                }
+                catch (FaultException)
+                {
                 }
             }
         }
 
         protected void DeleteOrderTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
-            {
-                var newOrder = this.CreateNewOrder(endpointConfigurationName);
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
 
-                var client = channel.CreateChannel();
+            var newOrder = this.CreateNewOrder(endpointConfigurationName);
 
-                var orderId = client.CreateNewOrder(newOrder);
+            var client = channel.CreateChannel();
 
-                var affectedRows = client.DeleteOrder(orderId);
+            var orderId = client.CreateNewOrder(newOrder);
 
-                Assert.AreEqual(affectedRows, 1);
-            }
+            var affectedRows = client.DeleteOrder(orderId);
+
+            Assert.AreEqual(affectedRows, 1);
         }
 
         protected void ProcessOrderFaultTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
+
+            var order = this.GetExistingOrder(endpointConfigurationName, dto => dto.OrderState.Equals(OrderState.InWork) || dto.OrderState.Equals(OrderState.Closed));
+
+            var client = channel.CreateChannel();
+
+            try
             {
-                var order = this.GetExistingOrder(endpointConfigurationName, dto => dto.OrderState.Equals(OrderState.InWork) || dto.OrderState.Equals(OrderState.Closed));
-
-                var client = channel.CreateChannel();
-
                 client.ProcessOrder(order.OrderId);
+
+                Assert.Fail();
+            }
+            catch (FaultException)
+            {
             }
         }
 
         protected void ProcessOrderTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
-            {
-                var newOrder = this.CreateNewOrder(endpointConfigurationName);
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
 
-                var client = channel.CreateChannel();
+            var newOrder = this.CreateNewOrder(endpointConfigurationName);
 
-                var newOrderId = client.CreateNewOrder(newOrder);
+            var client = channel.CreateChannel();
 
-                client.ProcessOrder(newOrderId);
+            var newOrderId = client.CreateNewOrder(newOrder);
 
-                var newOrderFromDB = client.GetById(newOrderId);
+            client.ProcessOrder(newOrderId);
 
-                Assert.IsTrue(newOrderFromDB.OrderState.Equals(OrderState.InWork));
-            }
+            var newOrderFromDB = client.GetById(newOrderId);
+
+            Assert.IsTrue(newOrderFromDB.OrderState.Equals(OrderState.InWork));
         }
 
         protected void CloseOrderFaultTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
+
+            var order = this.GetExistingOrder(endpointConfigurationName, dto => dto.OrderState.Equals(OrderState.New) || dto.OrderState.Equals(OrderState.Closed));
+
+            var client = channel.CreateChannel();
+
+            try
             {
-                var order = this.GetExistingOrder(endpointConfigurationName, dto => dto.OrderState.Equals(OrderState.New) || dto.OrderState.Equals(OrderState.Closed));
-
-                var client = channel.CreateChannel();
-
                 client.CloseOrder(order.OrderId);
+
+                Assert.Fail();
+            }
+            catch (FaultException)
+            {
             }
         }
 
         protected void CloseOrderTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
-            {
-                var newOrder = this.CreateNewOrder(endpointConfigurationName);
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
 
-                var client = channel.CreateChannel();
+            var newOrder = this.CreateNewOrder(endpointConfigurationName);
 
-                var newOrderId = client.CreateNewOrder(newOrder);
+            var client = channel.CreateChannel();
 
-                client.ProcessOrder(newOrderId);
+            var newOrderId = client.CreateNewOrder(newOrder);
 
-                client.CloseOrder(newOrderId);
+            client.ProcessOrder(newOrderId);
 
-                var newOrderFromDB = client.GetById(newOrderId);
+            client.CloseOrder(newOrderId);
 
-                Assert.IsTrue(newOrderFromDB.OrderState.Equals(OrderState.Closed));
-            }
+            var newOrderFromDB = client.GetById(newOrderId);
+
+            Assert.IsTrue(newOrderFromDB.OrderState.Equals(OrderState.Closed));
         }
 
         protected void SubscribeUnsubscribeOnOrderStatusChangingEventsTest(string endpointConfigurationName)
@@ -242,16 +287,15 @@
 
         private OrderDTO GetExistingOrder(string endpointConfigurationName, Func<OrderDTO, bool> predicate = null)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
-            {
-                var client = channel.CreateChannel();
+            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
 
-                var allOrders = client.GetAll();
+            var client = channel.CreateChannel();
 
-                predicate = predicate ?? (dto => true);
+            var allOrders = client.GetAll();
 
-                return allOrders.First(predicate);
-            }
+            predicate = predicate ?? (dto => true);
+
+            return allOrders.First(predicate);
         }
     }
 

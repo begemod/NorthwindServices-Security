@@ -1,6 +1,5 @@
 ﻿namespace Tests.IISHostingServicesTests
 {
-    using System.ServiceModel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Tests.BaseTests;
 
@@ -28,7 +27,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException))]
         public void CreateNewOrderFaultTest()
         {
             this.CreateNewOrderFaultTest(BasicHttpBindingIOrdersService);
@@ -43,7 +41,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException))]
         public void UpdateOrderFaultOnNullParameterTest()
         {
             this.UpdateOrderFaultOnNullParameterTest(BasicHttpBindingIOrdersService);
@@ -51,7 +48,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException))]
         public void UpdateOrderFaultOnAttemptNotInNewStateTest()
         {
             this.UpdateOrderFaultOnAttemptNotInNewStateTest(BasicHttpBindingIOrdersService);
@@ -59,7 +55,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException))]
         public void DeleteOrderFaultOnAttemptToDeleteNotExistingOrderTest()
         {
             this.DeleteOrderFaultOnAttemptToDeleteNotExistingOrderTest(BasicHttpBindingIOrdersService);
@@ -67,7 +62,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException))]
         public void DeleteOrderFaultOnAttemptToDeleteClosedOrderTest()
         {
             this.DeleteOrderFaultOnAttemptToDeleteClosedOrderTest(BasicHttpBindingIOrdersService);
@@ -82,7 +76,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException))]
         public void ProcessOrderFaultTest()
         {
             this.ProcessOrderFaultTest(BasicHttpBindingIOrdersService);
@@ -97,7 +90,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException))]
         public void CloseOrderFaultTest()
         {
             this.CloseOrderFaultTest(BasicHttpBindingIOrdersService);
