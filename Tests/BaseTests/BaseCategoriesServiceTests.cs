@@ -16,100 +16,106 @@
     {
         protected void GetCategoryNamesTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName))
-            {
-                var client = channel.CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName).CreateChannel();
 
-                var names = client.GetCategoryNames();
+            var names = client.GetCategoryNames();
 
-                Assert.IsTrue(names != null && names.Any());
-            }
+            Assert.IsTrue(names != null && names.Any());
         }
 
         protected void GetCategoryImageFaultTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName))
+            var invalidCategoryName = Guid.NewGuid().ToString();
+
+            var client = TestsEnviroment.GetChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName).CreateChannel();
+
+            try
             {
-                var invalidCategoryName = Guid.NewGuid().ToString();
+                client.GetCategoryImage(invalidCategoryName);
 
-                var client = channel.CreateChannel();
-
-                var stream = client.GetCategoryImage(invalidCategoryName);
+                Assert.Fail();
+            }
+            catch (FaultException)
+            {
             }
         }
 
         protected void GetCategoryImageTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName))
-            {
-                var client = channel.CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName).CreateChannel();
 
-                var names = client.GetCategoryNames();
+            var names = client.GetCategoryNames();
 
-                var categoryName = names.First();
+            var categoryName = names.First();
 
-                var readerStream = client.GetCategoryImage(categoryName);
+            var readerStream = client.GetCategoryImage(categoryName);
 
-                var memoryStream = this.ReadDataToMemoryStream(readerStream);
+            var memoryStream = this.ReadDataToMemoryStream(readerStream);
 
-                Assert.IsTrue(memoryStream.Length > 0);
-            }
+            Assert.IsTrue(memoryStream.Length > 0);
         }
 
         protected void SaveCategoryImageNullCategoryNameFaultTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName))
+            var client = TestsEnviroment.GetChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName).CreateChannel();
+
+            var sendingCategory = new SendingCategory
+                                       {
+                                           CategoryName = string.Empty,
+                                           CategoryImage = new MemoryStream()
+                                       };
+
+            try
             {
-                var client = channel.CreateChannel();
-
-                var sendingCategory = new SendingCategory
-                                           {
-                                               CategoryName = string.Empty,
-                                               CategoryImage = new MemoryStream()
-                                           };
-
                 client.SaveCategoryImage(sendingCategory);
+
+                Assert.Fail();
+            }
+            catch (FaultException)
+            {
             }
         }
 
         protected void SaveCategoryImageWithWrongCategoryNameFaultTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName))
+            var client = TestsEnviroment.GetChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName).CreateChannel();
+
+            var sendingCategory = new SendingCategory
             {
-                var client = channel.CreateChannel();
+                CategoryName = Guid.NewGuid().ToString(),
+                CategoryImage = new MemoryStream()
+            };
 
-                var sendingCategory = new SendingCategory
-                {
-                    CategoryName = Guid.NewGuid().ToString(),
-                    CategoryImage = new MemoryStream()
-                };
-
+            try
+            {
                 client.SaveCategoryImage(sendingCategory);
+
+                Assert.Fail();
+            }
+            catch (FaultException)
+            {
             }
         }
 
         protected void SaveCategoryImageTest(string endpointConfigurationName)
         {
-            using (var channel = new ChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName))
+            var client = TestsEnviroment.GetChannelFactory<ICategoriesServiceChannel>(endpointConfigurationName).CreateChannel();
+
+            var names = client.GetCategoryNames();
+            var categoryName = names.First();
+
+            var readerStream = client.GetCategoryImage(categoryName);
+
+            var memoryStream = this.ReadDataToMemoryStream(readerStream);
+            memoryStream.Position = 0;
+
+            var sendingCategory = new SendingCategory
             {
-                var client = channel.CreateChannel();
+                CategoryName = categoryName,
+                CategoryImage = memoryStream
+            };
 
-                var names = client.GetCategoryNames();
-                var categoryName = names.First();
-
-                var readerStream = client.GetCategoryImage(categoryName);
-
-                var memoryStream = this.ReadDataToMemoryStream(readerStream);
-                memoryStream.Position = 0;
-
-                var sendingCategory = new SendingCategory
-                {
-                    CategoryName = categoryName,
-                    CategoryImage = memoryStream
-                };
-
-                client.SaveCategoryImage(sendingCategory);
-            }
+            client.SaveCategoryImage(sendingCategory);
         }
 
         private MemoryStream ReadDataToMemoryStream(Stream inputStream)

@@ -18,7 +18,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException))]
         public void GetCategoryImageFaultTest()
         {
             this.GetCategoryImageFaultTest(BasicHttpBindingICategoriesService);
@@ -33,7 +32,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException))]
         public void SaveCategoryImageNullCategoryNameFaultTest()
         {
             this.SaveCategoryImageNullCategoryNameFaultTest(BasicHttpBindingICategoriesService);
@@ -41,7 +39,6 @@
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException))]
         public void SaveCategoryImageWrongCategoryNameFaultTest()
         {
             this.SaveCategoryImageWithWrongCategoryNameFaultTest(BasicHttpBindingICategoriesService);
