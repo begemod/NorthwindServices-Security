@@ -11,12 +11,6 @@
         private const string NetTcpBindingIOrdersService = "NetTcpBinding_IOrdersService_SH";
         private const string WsDualHttpBindingIOrdersSubscriptionService = "WSDualHttpBinding_IOrdersSubscriptionService_SH";
 
-        [ClassCleanup]
-        public static void CleanupClass()
-        {
-            CloseChannelFactories();
-        }
-
         [TestMethod]
         public void GetAllTest()
         {

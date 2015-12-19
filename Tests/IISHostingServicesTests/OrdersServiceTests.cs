@@ -13,12 +13,6 @@
 
         private const string WsDualHttpBindingIOrdersSubscriptionService = "WSDualHttpBinding_IOrdersSubscriptionService_IIS";
 
-        [ClassCleanup]
-        public static void CleanupClass()
-        {
-            CloseChannelFactories();
-        }
-
         [TestMethod]
         public void GetAllTest()
         {

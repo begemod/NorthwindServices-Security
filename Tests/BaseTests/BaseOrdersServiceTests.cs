@@ -1,7 +1,6 @@
 ﻿namespace Tests.BaseTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.ServiceModel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,26 +17,9 @@
 
     public class BaseOrdersServiceTests
     {
-        private static readonly Dictionary<string, ChannelFactory<IOrdersServiceChannel>> ChannelFactories = new Dictionary<string, ChannelFactory<IOrdersServiceChannel>>();
-
-        protected static void CloseChannelFactories()
-        {
-            foreach (var cf in ChannelFactories)
-            {
-                var channelFactory = cf.Value;
-
-                if (channelFactory.State == CommunicationState.Faulted)
-                {
-                    channelFactory.Abort();
-                }
-
-                channelFactory.Close();
-            }
-        }
-
         protected void GetAllTest(string endpointConfigurationName)
         {
-            var client = this.GetChannelFactory(endpointConfigurationName).CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
             var allOrders = client.GetAll();
 
             Assert.IsTrue(allOrders != null && allOrders.Any());
@@ -45,7 +27,7 @@
 
         protected void GetByIdTest(string endpointConfigurationName)
         {
-            var client = this.GetChannelFactory(endpointConfigurationName).CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
 
             var allOrders = client.GetAll();
 
@@ -58,7 +40,7 @@
 
         protected void CreateNewOrderFaultTest(string endpointConfigurationName)
         {
-            using (var channel = this.GetChannelFactory(endpointConfigurationName))
+            using (var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
             {
                 var client = channel.CreateChannel();
 
@@ -247,29 +229,6 @@
 
                 Assert.IsTrue(duration.TotalSeconds >= OperationRunningDurationInSeconds);
             }
-        }
-
-        private ChannelFactory<IOrdersServiceChannel> GetChannelFactory(string endpointConfigurationName)
-        {
-            ChannelFactory<IOrdersServiceChannel> channelFactory;
-
-            if (!ChannelFactories.ContainsKey(endpointConfigurationName))
-            {
-                channelFactory = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
-                ChannelFactories.Add(endpointConfigurationName, channelFactory);
-            }
-            else
-            {
-                channelFactory = ChannelFactories[endpointConfigurationName];
-
-                if (channelFactory.State == CommunicationState.Closing || channelFactory.State == CommunicationState.Closed)
-                {
-                    channelFactory = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
-                    ChannelFactories[endpointConfigurationName] = channelFactory;
-                }
-            }
-
-            return channelFactory;
         }
 
         private OrderDTO CreateNewOrder(string endpointConfigurationName)
