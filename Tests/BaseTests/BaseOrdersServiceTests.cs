@@ -40,9 +40,7 @@
 
         protected void CreateNewOrderFaultTest(string endpointConfigurationName)
         {
-            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
-
-            var client = channel.CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
 
             try
             {
@@ -57,11 +55,9 @@
 
         protected void CreateNewOrderTest(string endpointConfigurationName)
         {
-            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
-
             var newOrder = this.CreateNewOrder(endpointConfigurationName);
 
-            var client = channel.CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
             var orderId = client.CreateNewOrder(newOrder);
 
             Assert.IsTrue(orderId > 0);
@@ -74,9 +70,8 @@
 
         protected void UpdateOrderFaultOnNullParameterTest(string endpointConfigurationName)
         {
-            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
+            var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
 
-            var client = channel.CreateChannel();
             try
             {
                 client.UpdateOrder(null);
@@ -109,9 +104,7 @@
 
         protected void DeleteOrderFaultOnAttemptToDeleteNotExistingOrderTest(string endpointConfigurationName)
         {
-            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
-
-            var client = channel.CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
 
             try
             {
@@ -126,13 +119,11 @@
 
         protected void DeleteOrderFaultOnAttemptToDeleteClosedOrderTest(string endpointConfigurationName)
         {
-            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
-
             var order = this.GetExistingOrder(endpointConfigurationName, dto => dto.OrderState.Equals(OrderState.Closed));
 
             if (order != null)
             {
-                var client = channel.CreateChannel();
+                var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
 
                 try
                 {
@@ -148,11 +139,9 @@
 
         protected void DeleteOrderTest(string endpointConfigurationName)
         {
-            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
-
             var newOrder = this.CreateNewOrder(endpointConfigurationName);
 
-            var client = channel.CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
 
             var orderId = client.CreateNewOrder(newOrder);
 
@@ -167,7 +156,7 @@
 
             var order = this.GetExistingOrder(endpointConfigurationName, dto => dto.OrderState.Equals(OrderState.InWork) || dto.OrderState.Equals(OrderState.Closed));
 
-            var client = channel.CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
 
             try
             {
@@ -199,11 +188,9 @@
 
         protected void CloseOrderFaultTest(string endpointConfigurationName)
         {
-            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
-
             var order = this.GetExistingOrder(endpointConfigurationName, dto => dto.OrderState.Equals(OrderState.New) || dto.OrderState.Equals(OrderState.Closed));
 
-            var client = channel.CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
 
             try
             {
@@ -218,11 +205,9 @@
 
         protected void CloseOrderTest(string endpointConfigurationName)
         {
-            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
-
             var newOrder = this.CreateNewOrder(endpointConfigurationName);
 
-            var client = channel.CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
 
             var newOrderId = client.CreateNewOrder(newOrder);
 
@@ -287,9 +272,7 @@
 
         private OrderDTO GetExistingOrder(string endpointConfigurationName, Func<OrderDTO, bool> predicate = null)
         {
-            var channel = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName);
-
-            var client = channel.CreateChannel();
+            var client = TestsEnviroment.GetChannelFactory<IOrdersServiceChannel>(endpointConfigurationName).CreateChannel();
 
             var allOrders = client.GetAll();
 
