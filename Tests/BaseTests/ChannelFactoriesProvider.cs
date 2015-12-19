@@ -40,7 +40,15 @@
                     channelFactory.Abort();
                 }
 
-                channelFactory.Close();
+                try
+                {
+                    channelFactory.Close();
+                }
+                catch (CommunicationException)
+                {
+                    channelFactory.Abort();
+                    channelFactory.Close();
+                }
             }
         }
     }
