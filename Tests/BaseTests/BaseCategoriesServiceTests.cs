@@ -4,6 +4,8 @@
     using System.IO;
     using System.Linq;
     using System.ServiceModel;
+    using System.ServiceModel.Description;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using WCFServices.Cotracts;
     using WCFServices.DataContracts;
@@ -116,6 +118,29 @@
             };
 
             client.SaveCategoryImage(sendingCategory);
+        }
+
+        protected void BaseGetMetadataOverHttpGetTest(string address)
+        {
+            this.BaseGetMetadataTest(address, MetadataExchangeClientMode.HttpGet);
+        }
+
+        protected void BaseGetMetadataOverMetadataExchangeTest(string address)
+        {
+            this.BaseGetMetadataTest(address, MetadataExchangeClientMode.MetadataExchange);
+        }
+
+        private void BaseGetMetadataTest(string endpointAddress, MetadataExchangeClientMode metadataExchangeClientMode)
+        {
+            var client = new MetadataExchangeClient(new Uri(endpointAddress), metadataExchangeClientMode);
+
+            var metadata = client.GetMetadata();
+
+            var wsdlImporter = new WsdlImporter(metadata);
+
+            var contracts = wsdlImporter.ImportAllContracts();
+
+            Assert.IsTrue(contracts.Any());
         }
 
         private MemoryStream ReadDataToMemoryStream(Stream inputStream)

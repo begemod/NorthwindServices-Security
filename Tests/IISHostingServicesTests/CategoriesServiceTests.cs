@@ -9,6 +9,9 @@
     {
         private const string BasicHttpBindingICategoriesService = "BasicHttpBinding_ICategoriesService_IIS";
         private const string NetTcpBindingICategoriesService = "BasicHttpBinding_ICategoriesService_IIS"; //"NetTcpBinding_ICategoriesService_IIS";
+        private const string HttpMexEndpointAddress = "http://localhost/NorthwindWCFServices/CategoriesService.svc/mex";
+        private const string MetadataAddress = "http://localhost/NorthwindWCFServices/CategoriesService.svc?wsdl";
+
 
         [TestMethod]
         public void GetCategoryNamesTest()
@@ -50,6 +53,13 @@
         {
             this.SaveCategoryImageTest(BasicHttpBindingICategoriesService);
             this.SaveCategoryImageTest(NetTcpBindingICategoriesService);
+        }
+
+        [TestMethod]
+        public void GetMetadataTest()
+        {
+            this.BaseGetMetadataOverMetadataExchangeTest(HttpMexEndpointAddress);
+            this.BaseGetMetadataOverHttpGetTest(MetadataAddress);
         }
     }
 }
