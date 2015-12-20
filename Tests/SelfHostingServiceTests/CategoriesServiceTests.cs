@@ -1,6 +1,5 @@
 ﻿namespace Tests.SelfHostingServiceTests
 {
-    using System.ServiceModel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Tests.BaseTests;
 
@@ -9,6 +8,10 @@
     {
         private const string BasicHttpBindingICategoriesService = "BasicHttpBinding_ICategoriesService_SH";
         private const string NetTcpBindingICategoriesService = "NetTcpBinding_ICategoriesService_SH";
+        private const string HttpMexEndpointAddress = "http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/CategoriesService/mex";
+        private const string MetadataAddress = "http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/CategoriesService/?wsdl";
+        private const string TcpMexEndpointAddress = "net.tcp://epruizhw0228:810/NorthwindWCFServices/CategoriesService/mex";
+
 
         [TestMethod]
         public void GetCategoryNamesTest()
@@ -50,6 +53,14 @@
         {
             this.SaveCategoryImageTest(BasicHttpBindingICategoriesService);
             this.SaveCategoryImageTest(NetTcpBindingICategoriesService);
+        }
+
+        [TestMethod]
+        public void GetMetadataTest()
+        {
+            this.BaseGetMetadataOverMetadataExchangeTest(HttpMexEndpointAddress);
+            this.BaseGetMetadataOverHttpGetTest(MetadataAddress);
+            this.BaseGetMetadataOverMetadataExchangeTest(TcpMexEndpointAddress);
         }
     }
 }
