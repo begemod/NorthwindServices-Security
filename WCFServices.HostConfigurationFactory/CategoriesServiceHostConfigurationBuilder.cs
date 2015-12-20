@@ -19,6 +19,20 @@
             return this;
         }
 
+        public CategoriesServiceHostConfigurationBuilder AddMetadataPublicationOverMexHttpBinding(string address)
+        {
+            this.AddMexHttpEndpoint(address);
+
+            return this;
+        }
+
+        public CategoriesServiceHostConfigurationBuilder AddMetadataPublicationOverMexTcpBinding(string address)
+        {
+            this.AddMexTcpEndpoint(address);
+
+            return this;
+        }
+
         public override ServiceHost Configure()
         {
             this.AddBasicHttpEndpoint<ICategoriesService>(string.Empty, new BasicHttpBinding { TransferMode = TransferMode.Streamed });

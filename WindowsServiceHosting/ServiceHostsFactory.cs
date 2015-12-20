@@ -43,6 +43,8 @@
 
             return new CategoriesServiceHostConfigurationBuilder(categoriesServiceBaseAddress)
                         .AddNetTcpEndpoint("net.tcp://epruizhw0228:810/NorthwindWCFServices/CategoriesService")
+                        .AddMetadataPublicationOverMexHttpBinding("mex")
+                        .AddMetadataPublicationOverMexTcpBinding("net.tcp://epruizhw0228:810/NorthwindWCFServices/CategoriesService/mex")
                         .Configure();
         }
     }
