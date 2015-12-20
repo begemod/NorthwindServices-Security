@@ -32,6 +32,8 @@
 
             return new OrdersServiceHostConfigurationBuilder(ordersServiceBaseAddress)
                              .AddNetTcpEndpoint("net.tcp://epruizhw0228:809/NorthwindWCFServices/OrdersService")
+                             .AddMetadataPublicationOverMexHttpBinding("mex")
+                             .AddMetadataPublicationOverMexTcpBinding("net.tcp://epruizhw0228:809/NorthwindWCFServices/OrdersService/mex")
                              .Configure();
         }
 

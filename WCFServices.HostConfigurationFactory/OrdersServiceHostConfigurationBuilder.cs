@@ -19,6 +19,20 @@
             return this;
         }
 
+        public OrdersServiceHostConfigurationBuilder AddMetadataPublicationOverMexHttpBinding(string address)
+        {
+            this.AddMexHttpEndpoint(address);
+
+            return this;
+        }
+
+        public OrdersServiceHostConfigurationBuilder AddMetadataPublicationOverMexTcpBinding(string address)
+        {
+            this.AddMexTcpEndpoint(address);
+
+            return this;
+        }
+
         public override ServiceHost Configure()
         {
             this.AddBasicHttpEndpoint<IOrdersService>(string.Empty);

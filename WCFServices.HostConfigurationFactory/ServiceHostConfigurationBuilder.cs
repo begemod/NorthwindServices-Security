@@ -1,6 +1,7 @@
 ﻿namespace WCFServices.HostConfigurationFactory
 {
     using System;
+    using System.IO;
     using System.ServiceModel;
     using System.ServiceModel.Description;
 
@@ -42,11 +43,31 @@
             this.ServiceHost.AddServiceEndpoint(typeof(TK), binding, address);
         }
 
+        protected void AddMexHttpEndpoint(string address)
+        {
+            this.AddServiceMetadataBehavior();
+
+            var mexHttpBinding = MetadataExchangeBindings.CreateMexHttpBinding();
+
+            this.ServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), mexHttpBinding, address);
+        }
+
+        protected void AddMexTcpEndpoint(string address)
+        {
+            this.AddServiceMetadataBehavior();
+
+            var mexTcpBinding = MetadataExchangeBindings.CreateMexTcpBinding();
+
+            this.ServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), mexTcpBinding, address);
+        }
+
         protected void AddServiceMetadataBehavior()
         {
             if (this.ServiceHost.Description.Behaviors.Find<ServiceMetadataBehavior>() == null)
             {
-                this.ServiceHost.Description.Behaviors.Add(new ServiceMetadataBehavior { HttpGetEnabled = true });
+                var serviceMetadataBehavior = new ServiceMetadataBehavior { HttpGetEnabled = true };
+
+                this.ServiceHost.Description.Behaviors.Add(serviceMetadataBehavior);
             }
         }
     }
