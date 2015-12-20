@@ -9,6 +9,9 @@
         private const string BasicHttpBindingIOrdersService = "BasicHttpBinding_IOrdersService_SH";
         private const string NetTcpBindingIOrdersService = "NetTcpBinding_IOrdersService_SH";
         private const string WsDualHttpBindingIOrdersSubscriptionService = "WSDualHttpBinding_IOrdersSubscriptionService_SH";
+        private const string HttpMexEndpointAddress = "http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/mex";
+        private const string MetadataAddress = "http://epruizhw0228:8733/Design_Time_Addresses/NorthwindWCFServices/OrdersService/?wsdl";
+        private const string TcpMexEndpointAddress = "net.tcp://epruizhw0228:809/NorthwindWCFServices/OrdersService/mex";
 
         [TestMethod]
         public void GetAllTest()
@@ -105,6 +108,14 @@
         public void SubscribeUnsubscribeOnOrderStatusChangingEventsTest()
         {
             this.SubscribeUnsubscribeOnOrderStatusChangingEventsTest(WsDualHttpBindingIOrdersSubscriptionService);
+        }
+
+        [TestMethod]
+        public void GetMetadataTest()
+        {
+            this.BaseGetMetadataOverMetadataExchangeTest(HttpMexEndpointAddress);
+            this.BaseGetMetadataOverHttpGetTest(MetadataAddress);
+            this.BaseGetMetadataOverMetadataExchangeTest(TcpMexEndpointAddress);
         }
     }
 }
