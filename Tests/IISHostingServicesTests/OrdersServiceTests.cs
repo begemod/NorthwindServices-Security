@@ -122,5 +122,11 @@
             this.BaseGetMetadataOverMetadataExchangeTest(HttpMexEndpointAddress);
             this.BaseGetMetadataOverHttpGetTest(MetadataAddress);
         }
+
+        [TestMethod]
+        public void CheckEndpointsTest()
+        {
+            this.BaseCheckEndpointsTest(MetadataAddress);
+        }
     }
 }

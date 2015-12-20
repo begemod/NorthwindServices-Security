@@ -1,10 +1,12 @@
 ﻿namespace Tests.BaseTests
 {
     using System;
+    using System.Collections.Specialized;
     using System.Linq;
+    using System.Reflection;
     using System.ServiceModel;
+    using System.ServiceModel.Channels;
     using System.ServiceModel.Description;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using WCFServices.Cotracts;
     using WCFServices.DataContracts;
@@ -227,17 +229,9 @@
             var callbacksClient = new SubscriptionServiceClient();
             using (var channel = new DuplexChannelFactory<IOrdersSubscriptionChannel>(callbacksClient, endpointConfigurationName))
             {
-                var clientIdentifier = Guid.NewGuid().ToString();
-
                 var client = channel.CreateChannel();
 
-                var subscribeResult = client.Subscribe(clientIdentifier);
-
-                Assert.IsTrue(subscribeResult);
-
-                var unsubscribeResult = client.Unsubscribe(clientIdentifier);
-
-                Assert.IsTrue(unsubscribeResult);
+                this.SubscribeUnsubscribeTest(client);
             }
         }
 
@@ -275,25 +269,60 @@
             this.BaseGetMetadataTest(address, MetadataExchangeClientMode.MetadataExchange);
         }
 
-        protected void SimulateLongRunningOperationTest(string endpointConfigurationName)
+        protected void BaseCheckEndpointsTest(string address)
         {
-            using (var channel = new ChannelFactory<IOrdersServiceChannel>(endpointConfigurationName))
+            var client = new MetadataExchangeClient(new Uri(address), MetadataExchangeClientMode.HttpGet);
+
+            var metadata = client.GetMetadata();
+
+            var wsdlImporter = new WsdlImporter(metadata);
+
+            var endpoints = wsdlImporter.ImportAllEndpoints();
+
+            foreach (var endpoint in endpoints)
             {
-                const byte OperationRunningDurationInSeconds = 10;
+                this.TryCallOrdersServiceOperations(endpoint);
+            }
+        }
 
-                var client = channel.CreateChannel();
+        private void TryCallOrdersServiceOperations(ServiceEndpoint endpoint)
+        {
+            if (endpoint.Contract.Name == typeof(IOrdersService).Name)
+            {
+                Type endpointType = endpoint.Binding.GetType();
 
-                var startAt = DateTime.Now;
-                Console.WriteLine(DateTime.Now.ToLongTimeString());
+                PropertyInfo maxReceivedMessageSizepropertyInfo = endpointType.GetProperty("MaxReceivedMessageSize");
 
-                client.SimulateLongRunningOperation(OperationRunningDurationInSeconds);
+                if (maxReceivedMessageSizepropertyInfo != null)
+                {
+                    PropertyInfo maxBufferSizePropertyInfo = endpointType.GetProperty("MaxBufferSize");
 
-                var endAt = DateTime.Now;
-                Console.WriteLine(DateTime.Now.ToLongTimeString());
+                    if (maxBufferSizePropertyInfo != null)
+                    {
+                        maxBufferSizePropertyInfo.SetValue(endpoint.Binding, 6553600, null);
+                    }
 
-                var duration = endAt - startAt;
+                    maxReceivedMessageSizepropertyInfo.SetValue(endpoint.Binding, 6553600, null);
+                }
 
-                Assert.IsTrue(duration.TotalSeconds >= OperationRunningDurationInSeconds);
+                var channelFactory = new ChannelFactory<IOrdersService>(endpoint.Binding, endpoint.Address);
+
+                var channel = channelFactory.CreateChannel();
+
+                var allOrders = channel.GetAll();
+            }
+            else if (endpoint.Contract.Name == typeof(IOrdersSubscriptionService).Name)
+            {
+                var callbacksClient = new SubscriptionServiceClient();
+
+                var channelFactory = new DuplexChannelFactory<IOrdersSubscriptionService>(
+                    callbacksClient,
+                    endpoint.Binding,
+                    endpoint.Address);
+
+                var channel = channelFactory.CreateChannel();
+
+                this.SubscribeUnsubscribeTest(channel);
             }
         }
 
@@ -308,6 +337,19 @@
             var contracts = wsdlImporter.ImportAllContracts();
 
             Assert.IsTrue(contracts.Any());
+        }
+
+        private void SubscribeUnsubscribeTest(IOrdersSubscriptionService client)
+        {
+            var clientIdentifier = Guid.NewGuid().ToString();
+
+            var subscribeResult = client.Subscribe(clientIdentifier);
+
+            Assert.IsTrue(subscribeResult);
+
+            var unsubscribeResult = client.Unsubscribe(clientIdentifier);
+
+            Assert.IsTrue(unsubscribeResult);
         }
 
         private OrderDTO CreateNewOrder(string endpointConfigurationName)
