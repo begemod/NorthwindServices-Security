@@ -269,8 +269,6 @@
         {
             var client = new MetadataExchangeClient(new Uri(endpointAddress), MetadataExchangeClientMode.HttpGet);
 
-            //client.ResolveMetadataReferences = true;
-
             var metadata = client.GetMetadata();
 
             var wsdlImporter = new WsdlImporter(metadata);
