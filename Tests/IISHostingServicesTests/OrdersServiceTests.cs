@@ -11,7 +11,7 @@
         private const string WsDualHttpBindingIOrdersSubscriptionService = "WSDualHttpBinding_IOrdersSubscriptionService_IIS";
         private const string WsHttpBindingIOrdersService = "WsHttpBinding_IOrdersService_IIS";
         private const string HttpMexEndpointAddress = "http://localhost/NorthwindWCFServices/OrdersService.svc/mex";
-        private const string MetadataAddress = "http://localhost/NorthwindWCFServices/OrdersService.svc/mex?wsdl";
+        private const string MetadataAddress = "http://localhost/NorthwindWCFServices/OrdersService.svc?wsdl";
 
         [TestMethod]
         public void GetAllTest()
@@ -119,8 +119,8 @@
         [TestMethod]
         public void GetMetadataTest()
         {
-            this.BaseGetMetadataTest(HttpMexEndpointAddress);
-            this.BaseGetMetadataTest(MetadataAddress);
+            this.BaseGetMetadataOverMetadataExchangeTest(HttpMexEndpointAddress);
+            this.BaseGetMetadataOverHttpGetTest(MetadataAddress);
         }
     }
 }

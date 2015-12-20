@@ -265,17 +265,14 @@
             client.GetAll();
         }
 
-        protected void BaseGetMetadataTest(string endpointAddress)
+        protected void BaseGetMetadataOverHttpGetTest(string address)
         {
-            var client = new MetadataExchangeClient(new Uri(endpointAddress), MetadataExchangeClientMode.HttpGet);
+            this.BaseGetMetadataTest(address, MetadataExchangeClientMode.HttpGet);
+        }
 
-            var metadata = client.GetMetadata();
-
-            var wsdlImporter = new WsdlImporter(metadata);
-
-            var contracts = wsdlImporter.ImportAllContracts();
-
-            Assert.IsTrue(contracts.Any());
+        protected void BaseGetMetadataOverMetadataExchangeTest(string address)
+        {
+            this.BaseGetMetadataTest(address, MetadataExchangeClientMode.MetadataExchange);
         }
 
         protected void SimulateLongRunningOperationTest(string endpointConfigurationName)
@@ -298,6 +295,19 @@
 
                 Assert.IsTrue(duration.TotalSeconds >= OperationRunningDurationInSeconds);
             }
+        }
+
+        private void BaseGetMetadataTest(string endpointAddress, MetadataExchangeClientMode metadataExchangeClientMode)
+        {
+            var client = new MetadataExchangeClient(new Uri(endpointAddress), metadataExchangeClientMode);
+
+            var metadata = client.GetMetadata();
+
+            var wsdlImporter = new WsdlImporter(metadata);
+
+            var contracts = wsdlImporter.ImportAllContracts();
+
+            Assert.IsTrue(contracts.Any());
         }
 
         private OrderDTO CreateNewOrder(string endpointConfigurationName)
