@@ -309,6 +309,7 @@
 
                 var channel = channelFactory.CreateChannel();
 
+                // try to call the operation
                 var allOrders = channel.GetAll();
             }
             else if (endpoint.Contract.Name == typeof(IOrdersSubscriptionService).Name)
@@ -322,6 +323,7 @@
 
                 var channel = channelFactory.CreateChannel();
 
+                // try to call the operation
                 this.SubscribeUnsubscribeTest(channel);
             }
         }

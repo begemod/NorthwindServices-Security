@@ -130,6 +130,29 @@
             this.BaseGetMetadataTest(address, MetadataExchangeClientMode.MetadataExchange);
         }
 
+        protected void BaseCheckEndpointsTest(string address)
+        {
+            var client = new MetadataExchangeClient(new Uri(address), MetadataExchangeClientMode.HttpGet);
+
+            var metadata = client.GetMetadata();
+
+            var wsdlImporter = new WsdlImporter(metadata);
+
+            var endpoints = wsdlImporter.ImportAllEndpoints();
+
+            foreach (var endpoint in endpoints)
+            {
+                if (endpoint.Contract.Name == typeof(ICategoriesService).Name)
+                {
+                    var channelFactory = new ChannelFactory<ICategoriesService>(endpoint.Binding, endpoint.Address);
+
+                    var channel = channelFactory.CreateChannel();
+
+                    var names = channel.GetCategoryNames();
+                }
+            }
+        }
+
         private void BaseGetMetadataTest(string endpointAddress, MetadataExchangeClientMode metadataExchangeClientMode)
         {
             var client = new MetadataExchangeClient(new Uri(endpointAddress), metadataExchangeClientMode);
