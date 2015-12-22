@@ -1,6 +1,5 @@
 ﻿namespace Tests.IISHostingServicesTests
 {
-    using System.ServiceModel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Tests.BaseTests;
 
@@ -8,10 +7,9 @@
     public class CategoriesServiceTests : BaseCategoriesServiceTests
     {
         private const string BasicHttpBindingICategoriesService = "BasicHttpBinding_ICategoriesService_IIS";
-        private const string NetTcpBindingICategoriesService = "BasicHttpBinding_ICategoriesService_IIS"; //"NetTcpBinding_ICategoriesService_IIS";
+        private const string NetTcpBindingICategoriesService = "NetTcpBinding_ICategoriesService_IIS";
         private const string HttpMexEndpointAddress = "http://localhost/NorthwindWCFServices/CategoriesService.svc/mex";
         private const string MetadataAddress = "http://localhost/NorthwindWCFServices/CategoriesService.svc?wsdl";
-
 
         [TestMethod]
         public void GetCategoryNamesTest()

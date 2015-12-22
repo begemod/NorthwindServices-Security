@@ -5,7 +5,6 @@
     using System.Linq;
     using System.ServiceModel;
     using System.ServiceModel.Description;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using WCFServices.Cotracts;
     using WCFServices.DataContracts;

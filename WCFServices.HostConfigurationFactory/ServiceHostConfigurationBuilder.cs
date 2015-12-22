@@ -1,7 +1,6 @@
 ﻿namespace WCFServices.HostConfigurationFactory
 {
     using System;
-    using System.IO;
     using System.ServiceModel;
     using System.ServiceModel.Description;
 

@@ -1,11 +1,9 @@
 ﻿namespace Tests.BaseTests
 {
     using System;
-    using System.Collections.Specialized;
     using System.Linq;
     using System.Reflection;
     using System.ServiceModel;
-    using System.ServiceModel.Channels;
     using System.ServiceModel.Description;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using WCFServices.Cotracts;
