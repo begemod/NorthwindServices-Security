@@ -6,7 +6,7 @@
 
     public class RolesDataService : BaseDataService
     {
-        protected RolesDataService(IConnectionFactory connectionFactory)
+        public RolesDataService(IConnectionFactory connectionFactory)
             : base(connectionFactory)
         {
         }
