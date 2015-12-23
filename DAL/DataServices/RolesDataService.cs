@@ -2,12 +2,22 @@
 {
     using System.Collections.Generic;
     using DAL.Entities;
+    using DAL.QueryObjects;
 
-    public class RolesDataService
+    public class RolesDataService : BaseDataService
     {
-        public ICollection<Role> GetUserRoles(int userId)
+        protected RolesDataService(IConnectionFactory connectionFactory)
+            : base(connectionFactory)
         {
-            return new List<Role>();
+        }
+
+        public IEnumerable<Role> GetUserRoles(int userId)
+        {
+            using (var connection = this.GetConnection())
+            {
+                var orderQueryObject = new RoleQueryObject();
+                return connection.Query<Role>(orderQueryObject.GetUserRoles(userId));
+            }
         }
     }
 }
