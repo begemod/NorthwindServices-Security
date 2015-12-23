@@ -78,7 +78,9 @@
     <Compile Include="QueryObjects\OrderDetailQueryObject.cs" />
     <Compile Include="QueryObjects\OrderQueryObject.cs" />
     <Compile Include="QueryObjects\QueryObject.cs" />
+    <Compile Include="QueryObjects\RoleQueryObject.cs" />
     <Compile Include="QueryObjects\ShipperQueryObject.cs" />
+    <Compile Include="QueryObjects\UserQueryObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
