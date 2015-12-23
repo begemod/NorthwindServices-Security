@@ -52,7 +52,9 @@
     <Compile Include="DapperQueryObjectExtensions.cs" />
     <Compile Include="DataServices\BaseDataService.cs" />
     <Compile Include="DataServices\CategoriesDataService.cs" />
+    <Compile Include="DataServices\RolesDataService.cs" />
     <Compile Include="DataServices\ShippersDataService.cs" />
+    <Compile Include="DataServices\UsersDataService.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\CustomerDemographic.cs" />
