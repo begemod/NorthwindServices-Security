@@ -1,17 +1,24 @@
 ﻿namespace DAL.DataServices
 {
+    using System.Linq;
     using DAL.Entities;
+    using DAL.QueryObjects;
 
-    public class UsersDataService
+    public class UsersDataService : BaseDataService
     {
-        public User GetById(int userId)
+        public UsersDataService(IConnectionFactory connectionFactory)
+            : base(connectionFactory)
         {
-            return new User();
         }
 
-        public bool IsExist(User user)
+        public User GetByUserName(string userName, string password)
         {
-            return true;
+            using (var connection = GetConnection())
+            {
+                var queryObject = new UserQueryObject();
+
+                return connection.Query<User>(queryObject.GetUser(userName, password)).FirstOrDefault();
+            }
         }
     }
 }
