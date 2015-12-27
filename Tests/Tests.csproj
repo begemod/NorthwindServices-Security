@@ -58,6 +58,7 @@
     <Compile Include="BaseTests\ChannelFactoriesProvider.cs" />
     <Compile Include="BaseTests\TestsEnviroment.cs" />
     <Compile Include="DataSetviceTests\RolesDataServiceTests.cs" />
+    <Compile Include="DataSetviceTests\UsersDataServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IISHostingServicesTests\CategoriesServiceTests.cs" />
     <Compile Include="IISHostingServicesTests\OrdersServiceTests.cs" />
