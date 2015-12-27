@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using DAL.Entities;
+    using DAL.Infrastructure;
     using DAL.QueryObjects;
 
     public class UsersDataService : BaseDataService
@@ -17,7 +18,14 @@
             {
                 var queryObject = new UserQueryObject();
 
-                return connection.Query<User>(queryObject.GetUser(userName, password)).FirstOrDefault();
+                var user = connection.Query<User>(queryObject.GetUser(userName, password)).SingleOrDefault();
+
+                if (user == null)
+                {
+                    throw new EntityNotFoundException("User by defined name and password does not exist.");
+                }
+
+                return user;
             }
         }
     }
